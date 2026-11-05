@@ -219,7 +219,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   letter-spacing: 1px; padding: 5px 10px; border-radius: 999px;
 }
 .work__count { font-weight: 500; letter-spacing: 0; }
-.work__tile .play { align-self: center; }
+.work__tile > .play { position: absolute; right: 14px; bottom: 14px; width: 48px; height: 48px; }
 .work__fmt { font-family: var(--font-mono); font-size: 12px; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
 .work__tile:hover .play { transform: scale(1.08); }
 .work__tile:hover .work__media { transform: scale(1.04); }
