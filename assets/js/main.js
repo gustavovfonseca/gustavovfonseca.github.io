@@ -14,20 +14,69 @@
     barra.style.width = '100%';
   }
 
+  // A vinheta começa em quadros pretos: se ela não tocar, a tela fica preta. Por isso o início
+  // é vigiado: tenta de novo quando o vídeo fica pronto, recarrega uma vez se der erro e, se
+  // mesmo assim não tocar, volta a mostrar o quadro final (poster, com o logo).
+  function iniciarVinheta() {
+    var recarregou = false;
+    var desistiu = false;
+    var verificacoes = 0;
+    var vigia = null;
+
+    function tocar() {
+      if (desistiu || vinheta.ended) return;
+      var p = vinheta.play();
+      if (p && p.catch) p.catch(function () { /* o vigia tenta de novo */ });
+    }
+
+    function desistir() {
+      if (desistiu) return;
+      desistiu = true;
+      clearInterval(vigia);
+      vinheta.pause();
+      vinheta.removeAttribute('src'); // sem vídeo, o navegador mostra o poster
+      vinheta.load();
+      mostrarAviso();
+    }
+
+    function recarregarOuDesistir() {
+      if (recarregou) { desistir(); return; }
+      recarregou = true;
+      verificacoes = 0;
+      vinheta.load();
+      tocar();
+    }
+
+    vinheta.muted = true;
+    vinheta.defaultMuted = true;
+    vinheta.addEventListener('timeupdate', function () {
+      if (vinheta.duration) {
+        barra.style.width = Math.min(100, (vinheta.currentTime / vinheta.duration) * 100) + '%';
+      }
+    });
+    vinheta.addEventListener('ended', function () { clearInterval(vigia); mostrarAviso(); });
+    vinheta.addEventListener('canplay', tocar);
+    vinheta.addEventListener('error', recarregarOuDesistir);
+
+    vigia = setInterval(function () {
+      if (desistiu || vinheta.ended) { clearInterval(vigia); return; }
+      if (document.hidden) return;                     // aba em segundo plano: o navegador pausa vídeos
+      if (vinheta.currentTime > 0.3 && !vinheta.paused) return; // tocando normalmente
+      verificacoes += 1;
+      if (vinheta.error) { recarregarOuDesistir(); return; }
+      if (vinheta.paused) tocar();                     // a tentativa anterior falhou
+      if (verificacoes === 6) recarregarOuDesistir();  // ~6 s sem sair do lugar
+      if (verificacoes >= 12) desistir();              // ~12 s: fica no quadro final
+    }, 1000);
+
+    tocar();
+  }
+
   if (vinheta) {
     if (calmo) {
       mostrarAviso();
     } else {
-      vinheta.muted = true;
-      vinheta.addEventListener('timeupdate', function () {
-        if (vinheta.duration) {
-          barra.style.width = Math.min(100, (vinheta.currentTime / vinheta.duration) * 100) + '%';
-        }
-      });
-      vinheta.addEventListener('ended', mostrarAviso);
-      var tentativa = vinheta.play();
-      // Se o navegador bloquear a reprodução automática, mostra o aviso mesmo assim.
-      if (tentativa && tentativa.catch) tentativa.catch(mostrarAviso);
+      iniciarVinheta();
     }
   }
 
