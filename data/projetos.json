@@ -1,23 +1,5 @@
 [
   {
-    "titulo": "VSL — Saúde e bem-estar",
-    "categoria": "Direct Response",
-    "descricao": "VSL de resposta direta com edição cinematográfica: B-roll de lifestyle e macro para construir autoridade e conexão, com cada transição pensada para manter a retenção até o CTA.",
-    "ferramentas": ["After Effects"],
-    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/e1bec3244854199.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
-    "behance": "https://www.behance.net/gallery/244854199/DIRECT-RESPONSE-VIDEOS",
-    "videos": [
-      { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "duracao": "2:26" }
-    ],
-    "publicado": "2026-02-26",
-    "destaques": [
-      { "titulo": "Conexão", "texto": "B-roll de lifestyle que aproxima o público da história" },
-      { "titulo": "Autoridade", "texto": "cinematografia macro que dá peso científico ao produto" },
-      { "titulo": "Retenção", "texto": "cada transição pensada para segurar a atenção" },
-      { "titulo": "Ação", "texto": "a narrativa conduz a uma chamada clara" }
-    ]
-  },
-  {
     "titulo": "Criativos e Reels",
     "categoria": "Direct Response",
     "descricao": "Criativos verticais para anúncios e Reels, com foco em gancho e ritmo para o feed.",
@@ -25,12 +7,12 @@
     "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/ad4131232391725.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
     "behance": "https://www.behance.net/gallery/232391725/CRIATIVOSREELS",
     "videos": [
-      { "tipo": "behance", "id": "-WomML9BkjD", "formato": "9:16", "duracao": "0:40" },
-      { "tipo": "behance", "id": "6FSx2SJUjGS", "formato": "9:16", "duracao": "0:36" },
       { "tipo": "behance", "id": "VNd_Vfp7wDz", "formato": "9:16", "duracao": "1:08" },
       { "tipo": "behance", "id": "Sjab3wVvA7A", "formato": "9:16", "duracao": "0:46" },
       { "tipo": "behance", "id": "Nhh9ZXt3Mwy", "formato": "9:16", "duracao": "1:27" },
       { "tipo": "behance", "id": "ArqSCJYnZ6F", "formato": "9:16", "duracao": "0:38" },
+      { "tipo": "behance", "id": "-WomML9BkjD", "formato": "9:16", "duracao": "0:40" },
+      { "tipo": "behance", "id": "6FSx2SJUjGS", "formato": "9:16", "duracao": "0:36" },
       { "tipo": "behance", "id": "-Gw9KGdjnJk", "formato": "9:16", "duracao": "0:46" }
     ],
     "publicado": "2025-08-12"
@@ -124,5 +106,23 @@
       { "tipo": "behance", "id": "Vn2YipNd2Tp", "formato": "9:16", "duracao": "1:42" }
     ],
     "publicado": "2025-10-21"
+  },
+  {
+    "titulo": "VSL — Saúde e bem-estar",
+    "categoria": "Direct Response",
+    "descricao": "VSL de resposta direta com edição cinematográfica: B-roll de lifestyle e macro para construir autoridade e conexão, com cada transição pensada para manter a retenção até o CTA.",
+    "ferramentas": ["After Effects"],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/e1bec3244854199.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/244854199/DIRECT-RESPONSE-VIDEOS",
+    "videos": [
+      { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "duracao": "2:26" }
+    ],
+    "publicado": "2026-02-26",
+    "destaques": [
+      { "titulo": "Conexão", "texto": "B-roll de lifestyle que aproxima o público da história" },
+      { "titulo": "Autoridade", "texto": "cinematografia macro que dá peso científico ao produto" },
+      { "titulo": "Retenção", "texto": "cada transição pensada para segurar a atenção" },
+      { "titulo": "Ação", "texto": "a narrativa conduz a uma chamada clara" }
+    ]
   }
 ]
