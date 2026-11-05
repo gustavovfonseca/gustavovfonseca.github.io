@@ -3,7 +3,6 @@
   'use strict';
 
   var calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var config = {};
 
   /* ---------- Vinheta de abertura ---------- */
   var vinheta = document.getElementById('vinheta');
@@ -85,7 +84,6 @@
     frame.src = urlDoVideo(v);
     frame.title = v.titulo || 'Vídeo';
     frame.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
-    frame.allowFullscreen = true;
     caixa.appendChild(frame);
   }
 
@@ -162,244 +160,50 @@
     if (e.key === 'ArrowLeft') { mostrar(atual - 1); e.preventDefault(); }
   });
 
-  /* ---------- Configurações gerais (data/site.json) ---------- */
-  function aplicarConfig() {
-    var reelBtn = document.querySelector('[data-video="reel"]');
-    if (config.reel && (config.reel.id || config.reel.arquivo)) {
-      reelBtn.hidden = false;
-      reelBtn.addEventListener('click', function () {
-        abrir([config.reel], 'Reel', reelBtn);
-      });
-    }
-
-
-    var zap = document.getElementById('whatsapp');
-    var numero = String(config.whatsapp || '').replace(/\D/g, '');
-    if (numero) {
-      zap.href = 'https://wa.me/' + numero;
-      zap.hidden = false;
-    }
+  /* ---------- Ligações com o HTML gerado por scripts/build_site.py ---------- */
+  var dados = { reel: null, projetos: [] };
+  try {
+    dados = JSON.parse(document.getElementById('dados').textContent);
+  } catch (e) {
+    console.warn('Não consegui ler os dados dos vídeos', e);
   }
 
-  /* ---------- Trabalhos (data/projetos.json) ---------- */
-  var filtrosEl = document.getElementById('filtros');
-  var gradeEl = document.getElementById('grade');
-  var projetos = [];
-  var categoriaAtual = 'Todos';
-
-  function formatos(p) {
-    var f = [];
-    (p.videos || []).forEach(function (v) { if (v.formato && f.indexOf(v.formato) === -1) f.push(v.formato); });
-    return f.join(' · ');
+  function videosDoProjeto(i) {
+    var p = dados.projetos[i];
+    if (!p) return null;
+    return {
+      titulo: p.titulo,
+      videos: (p.videos || []).map(function (v) { return Object.assign({ titulo: p.titulo }, v); })
+    };
   }
 
-  function criarCard(p) {
-    var item = document.createElement('article');
-    item.className = 'work';
-
-    var qtd = (p.videos || []).length;
-    var tile = document.createElement('button');
-    tile.type = 'button';
-    tile.className = 'work__tile';
-    tile.setAttribute('aria-label', 'Assistir ' + p.titulo + (qtd > 1 ? ' (' + qtd + ' vídeos)' : ''));
-
-    if (p.capa) {
-      var img = document.createElement('img');
-      img.className = 'work__media';
-      img.src = p.capa;
-      img.alt = '';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.referrerPolicy = 'no-referrer';
-      img.onerror = function () { img.remove(); }; // sem capa, fica o fundo violeta
-      tile.appendChild(img);
-    }
-
-    var topo = document.createElement('span');
-    topo.className = 'work__top';
-    var cat = document.createElement('span');
-    cat.className = 'work__cat';
-    cat.textContent = p.categoria.toUpperCase();
-    topo.appendChild(cat);
-    if (qtd > 1) {
-      var n = document.createElement('span');
-      n.className = 'work__count';
-      n.textContent = qtd + ' vídeos';
-      topo.appendChild(n);
-    }
-
-    var play = document.createElement('span');
-    play.className = 'play';
-    play.setAttribute('aria-hidden', 'true');
-    play.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#000"/></svg>';
-
-    var fmt = document.createElement('span');
-    fmt.className = 'work__fmt';
-    fmt.textContent = formatos(p);
-
-    tile.appendChild(topo);
-    tile.appendChild(play);
-    tile.appendChild(fmt);
-    if (qtd === 0 && p.behance) {
-      // Projeto novo, ainda sem vídeos cadastrados: abre a página dele no Behance.
-      tile.setAttribute('aria-label', 'Ver ' + p.titulo + ' no Behance (abre em nova aba)');
-      fmt.textContent = 'Ver no Behance ↗';
-      play.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>';
-      tile.addEventListener('click', function () { window.open(p.behance, '_blank', 'noopener'); });
-    } else {
-      tile.addEventListener('click', function () {
-        var vids = (p.videos || []).map(function (v) { return Object.assign({ titulo: p.titulo }, v); });
-        abrir(vids, p.titulo, tile);
-      });
-    }
-
-    var corpo = document.createElement('div');
-    corpo.className = 'work__body';
-    var h = document.createElement('h3');
-    h.className = 'work__title';
-    h.textContent = p.titulo;
-    corpo.appendChild(h);
-    if (p.descricao) {
-      var d = document.createElement('p');
-      d.className = 'work__desc';
-      d.textContent = p.descricao;
-      corpo.appendChild(d);
-    }
-    if (p.ferramentas && p.ferramentas.length) {
-      var t = document.createElement('p');
-      t.className = 'work__tools mono';
-      t.textContent = p.ferramentas.join(' · ');
-      corpo.appendChild(t);
-    }
-
-    item.appendChild(tile);
-    item.appendChild(corpo);
-    return item;
-  }
-
-  function renderizarGrade() {
-    gradeEl.textContent = '';
-    projetos
-      .filter(function (p) { return categoriaAtual === 'Todos' || p.categoria === categoriaAtual; })
-      .forEach(function (p) { gradeEl.appendChild(criarCard(p)); });
-  }
-
-  function renderizarFiltros() {
-    var cats = ['Todos'];
-    projetos.forEach(function (p) { if (cats.indexOf(p.categoria) === -1) cats.push(p.categoria); });
-    filtrosEl.textContent = '';
-    filtrosEl.hidden = cats.length < 3;
-    cats.forEach(function (c) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'filter';
-      b.textContent = c;
-      b.setAttribute('aria-pressed', String(c === categoriaAtual));
-      b.addEventListener('click', function () {
-        categoriaAtual = c;
-        Array.prototype.forEach.call(filtrosEl.children, function (x) {
-          x.setAttribute('aria-pressed', String(x.textContent === c));
-        });
-        renderizarGrade();
-      });
-      filtrosEl.appendChild(b);
+  // Cards de Trabalhos e o botão do destaque: abrem o projeto inteiro no player.
+  document.querySelectorAll('[data-projeto]').forEach(function (botao) {
+    botao.addEventListener('click', function () {
+      var p = videosDoProjeto(Number(botao.getAttribute('data-projeto')));
+      if (p && p.videos.length) abrir(p.videos, p.titulo, botao);
     });
-  }
-
-  function carregar(url) {
-    return fetch(url, { cache: 'no-cache' }).then(function (r) {
-      if (!r.ok) throw new Error(url + ': ' + r.status);
-      return r.json();
-    });
-  }
-
-  /* ---------- Em destaque: primeiro vídeo do primeiro projeto da lista ---------- */
-  var destaqueProjeto = null;
-  var destaqueBtn = document.getElementById('destaque-btn');
-  destaqueBtn.addEventListener('click', function () {
-    if (!destaqueProjeto) return;
-    var vids = destaqueProjeto.videos.map(function (v) { return Object.assign({ titulo: destaqueProjeto.titulo }, v); });
-    abrir(vids, destaqueProjeto.titulo, destaqueBtn); // abre o projeto todo, começando pelo 1º vídeo
   });
 
-  function aplicarDestaque() {
-    var p = projetos.filter(function (x) { return x.videos && x.videos.length; })[0];
-    if (!p) return;
-    destaqueProjeto = p;
-    var v = p.videos[0];
-    var qtd = p.videos.length;
-
-    document.getElementById('destaque-eyebrow').textContent = 'EM DESTAQUE · ' + p.titulo.toUpperCase();
-    document.getElementById('destaque-meta').textContent = qtd > 1
-      ? [qtd + ' vídeos', formatos(p)].join(' · ')
-      : [v.formato, v.duracao].filter(Boolean).join(' · ');
-    destaqueBtn.setAttribute('aria-label', 'Assistir ' + p.titulo + (qtd > 1 ? ' (' + qtd + ' vídeos)' : ''));
-
-    var capa = document.getElementById('destaque-capa');
-    if (p.capa) {
-      if (!capa) {
-        capa = document.createElement('img');
-        capa.className = 'screen__img';
-        capa.id = 'destaque-capa';
-        capa.alt = '';
-        capa.referrerPolicy = 'no-referrer';
-        capa.onerror = function () { capa.remove(); };
-        destaqueBtn.insertBefore(capa, destaqueBtn.firstChild);
-      }
-      if (capa.getAttribute('src') !== p.capa) capa.src = p.capa;
-    } else if (capa) {
-      capa.remove();
-    }
-
-    // Pontos do destaque: campo opcional "destaques" no projeto; sem ele, mostra a descrição.
-    var pontos = document.getElementById('destaque-pontos');
-    var desc = document.getElementById('destaque-desc');
-    if (p.destaques && p.destaques.length) {
-      pontos.textContent = '';
-      p.destaques.forEach(function (d, n) {
-        var li = document.createElement('li');
-        var num = document.createElement('span');
-        num.className = 'mono muted';
-        num.textContent = String(n + 1).padStart(2, '0');
-        var txt = document.createElement('span');
-        if (d.titulo) {
-          var b = document.createElement('b');
-          b.textContent = d.titulo;
-          txt.appendChild(b);
-          txt.appendChild(document.createTextNode(' — ' + (d.texto || '')));
-        } else {
-          txt.textContent = d.texto || '';
-        }
-        li.appendChild(num);
-        li.appendChild(txt);
-        pontos.appendChild(li);
-      });
-      pontos.hidden = false;
-      desc.hidden = true;
-    } else {
-      pontos.hidden = true;
-      desc.textContent = p.descricao || '';
-      desc.hidden = !p.descricao;
-    }
+  // Reel (só existe no HTML quando há reel em data/site.json).
+  var reelBtn = document.querySelector('[data-video="reel"]');
+  if (reelBtn && dados.reel) {
+    reelBtn.addEventListener('click', function () { abrir([dados.reel], 'Reel', reelBtn); });
   }
 
-  carregar('data/site.json')
-    .then(function (c) { config = c || {}; })
-    .catch(function (e) { console.warn('Não consegui ler site.json', e); })
-    .then(aplicarConfig);
-
-  carregar('data/projetos.json')
-    .then(function (itens) {
-      projetos = (itens || []).filter(function (p) { return p && p.titulo && p.categoria && !p.oculto; });
-      aplicarDestaque();
-      renderizarFiltros();
-      renderizarGrade();
-    })
-    .catch(function (e) {
-      console.warn('Não consegui ler projetos.json', e);
-      gradeEl.innerHTML = '<p class="muted">Não foi possível carregar os trabalhos agora.</p>';
+  // Filtros por categoria: só escondem/mostram os cards que já estão na página.
+  var filtrosEl = document.getElementById('filtros');
+  if (filtrosEl) {
+    filtrosEl.addEventListener('click', function (ev) {
+      var alvo = ev.target.closest('[data-filtro]');
+      if (!alvo) return;
+      var cat = alvo.getAttribute('data-filtro');
+      filtrosEl.querySelectorAll('[data-filtro]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === alvo));
+      });
+      document.querySelectorAll('#grade .work').forEach(function (card) {
+        card.hidden = cat !== 'Todos' && card.getAttribute('data-categoria') !== cat;
+      });
     });
-
-  var ano = document.getElementById('ano');
-  if (ano) ano.textContent = new Date().getFullYear();
+  }
 })();

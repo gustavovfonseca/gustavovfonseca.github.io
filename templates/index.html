@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!-- Modelo da página. Não edite os textos aqui: eles vêm de data/site.json e data/projetos.json.
+       scripts/build_site.py preenche os marcadores entre chaves duplas (texto) e triplas (HTML pronto) e gera _site/. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ seo.titulo }}</title>
+  <meta name="description" content="{{ seo.descricao }}">
+  <meta name="author" content="{{ nome }}">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
+  <meta name="theme-color" content="#000000">
+  <link rel="canonical" href="{{ url_inicio }}">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="{{ marca }}">
+  <meta property="og:url" content="{{ url_inicio }}">
+  <meta property="og:title" content="{{ seo.titulo_compartilhamento }}">
+  <meta property="og:description" content="{{ seo.descricao_compartilhamento }}">
+  <meta property="og:image" content="{{ url_og_imagem }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ marca }}">
+  <meta property="profile:first_name" content="{{ nome_primeiro }}">
+  <meta property="profile:last_name" content="{{ nome_ultimo }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ seo.titulo_compartilhamento }}">
+  <meta name="twitter:description" content="{{ seo.descricao_compartilhamento }}">
+  <meta name="twitter:image" content="{{ url_og_imagem }}">
+
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <link rel="preload" as="image" href="assets/video/vinheta-poster.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://mir-s3-cdn-cf.behance.net">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css?v={{ versao }}">
+  <script src="assets/js/main.js?v={{ versao }}" defer></script>
+
+  <script type="application/ld+json">{{{ json_ld }}}</script>
+</head>
+<body>
+  <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+
+  <!-- ABERTURA: vinheta da marca -->
+  <header class="hero" id="topo">
+    <video class="hero__video" id="vinheta" src="assets/video/vinheta.mp4" poster="assets/video/vinheta-poster.jpg"
+           muted playsinline preload="auto" aria-label="Vinheta de abertura {{ marca }}"></video>
+    <div class="hero__shade" aria-hidden="true"></div>
+
+    <nav class="nav" aria-label="Principal">
+      <a class="nav__logo" href="#topo" aria-label="{{ marca }} — início">
+        <img src="assets/img/logo.png" alt="{{ marca }}" width="373" height="96">
+      </a>
+      <div class="nav__links">
+        <a class="nav__text" href="#trabalhos">Trabalhos</a>
+        <a class="nav__text" href="#servicos">Serviços</a>
+        <a class="nav__text" href="#sobre">Sobre</a>
+        <a class="btn btn--accent btn--sm" href="#contato">Fale comigo</a>
+      </div>
+    </nav>
+
+    <div class="hero__bottom">
+      <div class="hero__meta">
+        <p class="hero__rec mono"><span>● REC</span><span class="hero__tc">{{ marca_maiusculas }} · 00:00:08:02</span></p>
+        <div class="hero__cue-wrap">
+          <a class="hero__cue" id="cue" href="#inicio" aria-label="Rolar para o conteúdo" hidden>
+            <span class="hero__cue-label">ROLE PARA BAIXO</span>
+            <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        {{{ botao_reel }}}
+      </div>
+      <div class="hero__bar" aria-hidden="true"><div class="hero__bar-fill" id="barra"></div></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- FRASE PRINCIPAL -->
+    <section class="section section--black" id="inicio" tabindex="-1">
+      <div class="wrap stack">
+        <span class="chip">{{ abertura.etiqueta }}</span>
+        <h1 class="display">{{{ abertura_titulo }}}</h1>
+        <p class="lead">{{ abertura_texto }}</p>
+        <div class="actions">
+          <a class="btn btn--accent" href="#trabalhos">Ver trabalhos</a>
+          <a class="btn btn--outline" href="#contato">Pedir orçamento</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EM DESTAQUE: o primeiro projeto de data/projetos.json -->
+    {{{ secao_destaque }}}
+
+    <!-- SERVIÇOS -->
+    <section class="section section--black" id="servicos">
+      <div class="wrap stack">
+        <h2 class="title">{{ servicos.titulo }}</h2>
+        <div class="grid grid--4">
+          {{{ servicos_cards }}}
+        </div>
+        {{{ servicos_processo }}}
+      </div>
+    </section>
+
+    <!-- TRABALHOS -->
+    <section class="section section--graphite" id="trabalhos">
+      <div class="wrap stack">
+        <div class="section-head">
+          <h2 class="title">Trabalhos</h2>
+          <span class="muted">Toque em um projeto para assistir aos vídeos</span>
+        </div>
+        {{{ filtros }}}
+        <div class="works" id="grade">
+          {{{ cards_trabalhos }}}
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="section section--black" id="sobre">
+      <div class="wrap split split--about">
+        <figure class="portrait">
+          <img class="portrait__img" src="{{ sobre.foto }}" alt="{{ nome }}, {{ profissao_minusculas }} em {{ cidade }}" width="720" height="900" loading="lazy" decoding="async">
+          <figcaption class="portrait__badge"><span class="portrait__num">{{ anos_mais }}</span><span>anos editando vídeo</span></figcaption>
+        </figure>
+        <div class="stack split__main">
+          <h2 class="title">Sobre</h2>
+          <p class="lead lead--light">{{ sobre_texto }}</p>
+          {{{ ferramentas }}}
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="section section--accent" id="contato">
+      <div class="wrap stack">
+        <h2 class="display display--md">{{{ contato_titulo }}}</h2>
+        <div class="actions">
+          {{{ botoes_contato }}}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="footer__brand"><img src="assets/img/logo.png" alt="{{ marca }}" width="124" height="32">{{ nome }} · {{ profissao }} · {{ cidade }}</span>
+    <span class="mono">© {{ ano }} {{ marca }}</span>
+  </footer>
+
+  <!-- Player em janela (abre os vídeos completos) -->
+  <dialog class="player" id="player" aria-labelledby="player-titulo">
+    <div class="player__inner">
+      <p class="player__title" id="player-titulo">Vídeo</p>
+      <div class="player__box" id="player-box"></div>
+      <div class="player__nav" id="player-nav" hidden></div>
+    </div>
+    <button class="player__close" type="button" id="player-fechar" aria-label="Fechar vídeo">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </dialog>
+
+  <!-- Vídeos de cada projeto, para o player -->
+  <script type="application/json" id="dados">{{{ dados_player }}}</script>
+</body>
+</html>

@@ -5,18 +5,37 @@ Site estático (HTML, CSS e JavaScript puros, sem dependências) publicado no Gi
 ## Estrutura
 
 ```
-index.html              página única do site
-404.html                página de "não encontrado"
-assets/css/style.css    estilos (cores no topo do arquivo)
-assets/js/main.js       vinheta, filtros, grade de trabalhos e player
-assets/img/             logo, favicon e imagem de compartilhamento
-assets/video/           vinheta de abertura e o quadro final (poster)
-data/projetos.json      lista de trabalhos da grade
-data/site.json          usuário do Behance, reel e WhatsApp
-scripts/sync_behance.py lê o feed do Behance e atualiza data/projetos.json
+templates/index.html      modelo da página (layout); os textos vêm dos JSON
+data/site.json            textos, contatos, serviços, "Sobre", SEO e anos de experiência
+data/projetos.json        projetos e vídeos (atualizado pela sincronização com o Behance)
+assets/css/style.css      estilos (cores no topo do arquivo)
+assets/js/main.js         vinheta, player e filtros
+assets/img/, assets/video logo, foto, favicon, imagem de compartilhamento e vinheta
+404.html                  página de "não encontrado"
+scripts/build_site.py     monta o site final em _site/ (roda na publicação)
+scripts/sync_behance.py   lê o feed do Behance e atualiza data/projetos.json
 scripts/coletar-videos.js coleta no navegador a lista de vídeos de cada projeto
-.github/workflows/      publicação no GitHub Pages e sincronização com o Behance
+.github/workflows/        publicação no GitHub Pages e sincronização com o Behance
 ```
+
+Para mudar **qualquer texto do site**, edite `data/site.json` — não é preciso mexer no HTML.
+Na publicação, `scripts/build_site.py` coloca os textos, o destaque e a grade de trabalhos direto
+no HTML (bom para o Google e para as prévias de link) e gera também `sitemap.xml` e `robots.txt`.
+
+### O que fica em `data/site.json`
+
+| Campo | Onde aparece |
+| --- | --- |
+| `url`, `nome`, `marca`, `profissao`, `cidade` | rodapé, "Sobre", título da aba, dados para o Google |
+| `anos_experiencia` | selo da foto (`5+`) e onde houver `{anos}` nos textos |
+| `seo` | título da aba, descrição no Google e nas prévias de link |
+| `abertura` | etiqueta, título (a última linha fica violeta) e texto da primeira seção |
+| `destaque.titulo` | título da seção "Em destaque" |
+| `servicos` | cards de "O que eu entrego" e a linha "Como funciona" |
+| `sobre` | texto, foto e ferramentas extras (as dos projetos entram sozinhas) |
+| `contato` | título, e-mail, WhatsApp e Instagram (campo vazio = botão some) |
+| `reel` | botão "Ver reel" na abertura (`null` = escondido) |
+| `behance` | usuário usado pela sincronização |
 
 ## Como publicar (uma vez)
 
@@ -120,27 +139,35 @@ Os pontos ao lado do vídeo vêm do campo opcional `destaques` do projeto:
 
 Sem esse campo, aparece a `descricao` do projeto.
 
-## Reel e WhatsApp
+## Reel
 
-Em `data/site.json`:
+Em `data/site.json`, `"reel": { "tipo": "youtube", "id": "XXXXXXXXXXX", "formato": "16:9" }` mostra o
+botão "Ver reel" na abertura. Com `"reel": null`, o botão fica escondido.
 
-```json
-{
-  "reel":     { "tipo": "youtube", "id": "XXXXXXXXXXX", "formato": "16:9" },
-  "whatsapp": "5511999999999"
-}
-```
+O WhatsApp fica em `contato.whatsapp`; pode ser escrito como quiser (ex.: `+55 (11) 98100-3202`).
 
-- Sem `reel`, o botão "Ver reel" fica escondido.
-- Sem `whatsapp`, o botão de WhatsApp fica escondido. Use DDI + DDD + número, só dígitos.
+## SEO
+
+A cada publicação o site sai com:
+
+- título, descrição e link canônico; prévia completa para WhatsApp, Instagram e redes (Open Graph);
+- dados estruturados (schema.org) da pessoa, do site e de cada projeto com seus vídeos, o que ajuda
+  o Google a entender o portfólio e a mostrar os vídeos na busca;
+- `sitemap.xml` e `robots.txt`;
+- todo o conteúdo já no HTML (sem depender de JavaScript para o Google ler);
+- capas em três tamanhos, para cada tela baixar só o necessário.
+
+Para o site aparecer mais rápido no Google, cadastre-o no
+[Google Search Console](https://search.google.com/search-console) e envie o sitemap
+`https://gustavovfonseca.github.io/sitemap.xml`.
 
 ## Ver o site no computador antes de publicar
 
-Os dados vêm de arquivos JSON, então abrir o `index.html` direto no navegador não carrega a grade.
-Rode um servidor local na pasta do site:
+Monte o site e abra a pasta gerada com um servidor local:
 
 ```bash
-python3 -m http.server 8000
+python3 scripts/build_site.py
+python3 -m http.server -d _site 8000
 ```
 
 e abra `http://localhost:8000`.

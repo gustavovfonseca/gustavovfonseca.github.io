@@ -1,5 +1,51 @@
 {
+  "url": "https://gustavovfonseca.github.io",
+  "nome": "Gustavo Fonseca",
+  "marca": "Fonsekai Archive",
+  "profissao": "Editor de vídeo e motion designer",
+  "cidade": "São Paulo",
+  "anos_experiencia": 5,
   "behance": "gustavofonseca37",
   "reel": null,
-  "whatsapp": "+55 (11) 98100-3202"
+
+  "seo": {
+    "titulo": "Gustavo Fonseca — Editor de vídeo · Direct Response | Fonsekai Archive",
+    "descricao": "Gustavo Fonseca, editor de vídeo e motion designer em São Paulo. Criativos para tráfego pago, TikTok Shop e motion com foco em Direct Response.",
+    "titulo_compartilhamento": "Gustavo Fonseca — Cortes que prendem. Vídeos que vendem.",
+    "descricao_compartilhamento": "Editor de vídeo e motion designer focado em Direct Response."
+  },
+
+  "abertura": {
+    "etiqueta": "Editor de vídeo · Direct Response",
+    "titulo": ["Cortes que prendem.", "Vídeos que vendem."],
+    "texto": "Mais de {anos} anos editando criativos para tráfego pago, TikTok Shop e motion. Storytelling visual pensado para quem precisa de resultado."
+  },
+
+  "destaque": {
+    "titulo": "Retenção do primeiro ao último segundo."
+  },
+
+  "servicos": {
+    "titulo": "O que eu entrego",
+    "itens": [
+      { "titulo": "Anúncios de resposta direta", "texto": "Edição orientada a hook, retenção e chamada para ação." },
+      { "titulo": "Criativos para tráfego pago", "texto": "Variações de Reels e TikTok para testar ganchos e ofertas." },
+      { "titulo": "TikTok Shop", "texto": "Vídeos de produto no formato que a plataforma favorece." },
+      { "titulo": "Motion graphics", "texto": "Legendas animadas, vinhetas e elementos que seguram a atenção." }
+    ],
+    "processo": ["Briefing", "Roteiro de cortes", "Edição", "Ajustes", "Entrega por formato"]
+  },
+
+  "sobre": {
+    "texto": "Sou o Gustavo Fonseca, editor de vídeo há mais de {anos} anos e motion designer em São Paulo. Hoje meu foco é Direct Response: transformar storytelling visual em conteúdo que converte.",
+    "foto": "assets/img/gustavo.jpg",
+    "ferramentas": []
+  },
+
+  "contato": {
+    "titulo": ["Seu próximo criativo", "começa aqui."],
+    "email": "gustavov.fonseca02@gmail.com",
+    "whatsapp": "+55 (11) 98100-3202",
+    "instagram": "gustavofons_"
+  }
 }
