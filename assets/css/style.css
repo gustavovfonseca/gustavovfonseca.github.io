@@ -144,6 +144,20 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .section--graphite { background: var(--grafite); }
 .section--accent { background: var(--violeta); padding-top: 112px; padding-bottom: 112px; }
 #inicio { padding-top: 88px; }
+/* No computador, a frase principal ocupa exatamente uma tela: o "Role para baixo" a enquadra inteira.
+   O tamanho do título acompanha a altura da janela (botões nunca cortados) e fica em no máximo 139px,
+   que é o que cabe na coluna de 1200px sem "VÍDEOS QUE VENDEM." quebrar em duas linhas. */
+@media (min-width: 761px) {
+  #inicio {
+    min-height: 100vh; min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 64px; padding-bottom: 64px;
+  }
+  #inicio .display { font-size: clamp(56px, min(10vw, 139px, calc((100vh - 380px) / 3.42)), 139px); }
+  @supports (height: 100svh) {
+    #inicio .display { font-size: clamp(56px, min(10vw, 139px, calc((100svh - 380px) / 3.42)), 139px); }
+  }
+}
 
 .wrap { max-width: 1200px; margin: 0 auto; }
 .stack { display: flex; flex-direction: column; gap: 28px; }
@@ -156,7 +170,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 
 .display {
   font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
-  font-size: clamp(56px, 10vw, 156px); line-height: 1.04; letter-spacing: -1px;
+  font-size: clamp(56px, 10vw, 156px); line-height: 1.14; letter-spacing: -1px;
 }
 .display--md { font-size: clamp(44px, 7vw, 112px); line-height: 1.06; }
 .title {
