@@ -1,11 +1,19 @@
 name: Sincronizar com o Behance
 
-# Lê o feed RSS público do Behance e atualiza data/projetos.json.
-# Roda todo dia e também pode ser disparado à mão na aba Actions.
+# Lê o feed RSS público do Behance e atualiza data/projetos.json:
+# projetos novos/removidos, capas e a ordem dos projetos (igual ao perfil).
+# O feed não traz os vídeos de cada projeto; para atualizar lista e ordem dos
+# vídeos, rode à mão e cole no campo "videos" o resultado de
+# scripts/coletar-videos.js (executado no navegador, na página do Behance).
 on:
   schedule:
     - cron: "17 9 * * *" # 06:17 em Brasília
   workflow_dispatch:
+    inputs:
+      videos:
+        description: "Opcional: resultado do scripts/coletar-videos.js (lista e ordem dos vídeos de cada projeto)"
+        required: false
+        default: ""
 
 permissions:
   contents: write # para commitar data/projetos.json
@@ -22,7 +30,11 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Ler o Behance e atualizar a lista de projetos
-        run: python3 scripts/sync_behance.py
+        env:
+          VIDEOS: ${{ inputs.videos }}
+        run: |
+          printf '%s' "$VIDEOS" > "$RUNNER_TEMP/videos.json"
+          python3 scripts/sync_behance.py --videos "$RUNNER_TEMP/videos.json"
 
       - name: Checar se o JSON continua válido
         run: python3 -m json.tool data/projetos.json > /dev/null

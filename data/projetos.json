@@ -9,7 +9,13 @@
     "videos": [
       { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "duracao": "2:26" }
     ],
-    "publicado": "2026-02-26"
+    "publicado": "2026-02-26",
+    "destaques": [
+      { "titulo": "Conexão", "texto": "B-roll de lifestyle que aproxima o público da história" },
+      { "titulo": "Autoridade", "texto": "cinematografia macro que dá peso científico ao produto" },
+      { "titulo": "Retenção", "texto": "cada transição pensada para segurar a atenção" },
+      { "titulo": "Ação", "texto": "a narrativa conduz a uma chamada clara" }
+    ]
   },
   {
     "titulo": "Criativos e Reels",

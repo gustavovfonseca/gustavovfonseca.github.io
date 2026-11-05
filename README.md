@@ -12,8 +12,9 @@ assets/js/main.js       vinheta, filtros, grade de trabalhos e player
 assets/img/             logo, favicon e imagem de compartilhamento
 assets/video/           vinheta de abertura e o quadro final (poster)
 data/projetos.json      lista de trabalhos da grade
-data/site.json          usuário do Behance, reel, anúncio em destaque e WhatsApp
+data/site.json          usuário do Behance, reel e WhatsApp
 scripts/sync_behance.py lê o feed do Behance e atualiza data/projetos.json
+scripts/coletar-videos.js coleta no navegador a lista de vídeos de cada projeto
 .github/workflows/      publicação no GitHub Pages e sincronização com o Behance
 ```
 
@@ -52,20 +53,19 @@ Para testar sem gravar nada: `python3 scripts/sync_behance.py --dry-run`.
 > O Behance bloqueia leitura automática das páginas de projeto, por isso a sincronização usa só
 > o feed RSS, que é público e feito para isso.
 
-### Pegar os vídeos de um projeto novo
+### Atualizar a lista e a ordem dos vídeos
 
-1. Abra o projeto no Behance, no navegador do computador.
-2. Abra o console do navegador (F12 → Console), cole o código abaixo e aperte Enter.
-3. A lista de vídeos é copiada; cole no campo `"videos": [...]` do projeto em `data/projetos.json`.
+O feed do Behance não informa os vídeos de cada projeto, e as páginas dos projetos bloqueiam
+leitura automática. Por isso a lista de vídeos é coletada no navegador e aplicada pelo workflow:
 
-```js
-copy(JSON.stringify([...document.querySelectorAll('iframe')].map(f => {
-  const ccv = f.src.match(/ccv\/([^/]+)\/embed/), yt = f.src.match(/youtube\.com\/embed\/([^?]+)/);
-  const r = f.closest('.embed-aspect-ratio'), pb = r ? parseFloat(r.style.paddingBottom) : 56.25;
-  const formato = pb > 150 ? '9:16' : pb > 90 ? '1:1' : '16:9';
-  return ccv ? { tipo: 'behance', id: ccv[1], formato } : yt ? { tipo: 'youtube', id: yt[1], formato } : null;
-}).filter(Boolean), null, 2))
-```
+1. No computador, abra `https://www.behance.net/gustavofonseca37` no navegador.
+2. Abra o console (F12 → Console), cole o conteúdo de `scripts/coletar-videos.js` e aperte Enter.
+   Ele lê todos os projetos e copia a lista de vídeos para a área de transferência.
+3. No GitHub: **Actions → Sincronizar com o Behance → Run workflow**, cole no campo **videos** e
+   clique em **Run workflow**.
+
+O site passa a ter exatamente os vídeos de cada projeto, na mesma ordem do Behance (vídeos novos
+entram, removidos saem). A duração dos vídeos do Behance é preenchida sozinha.
 
 ## Como adicionar ou trocar um trabalho
 
@@ -103,14 +103,29 @@ o player passa de um vídeo para o outro com as setas.
 Vídeos longos devem ficar no YouTube (pode ser "não listado") ou no Vimeo:
 o GitHub Pages limita o site a 1 GB e o tráfego a ~100 GB/mês.
 
-## Reel, anúncio em destaque e WhatsApp
+## Em destaque
+
+A seção "Em destaque" mostra sempre o **primeiro vídeo do primeiro projeto** de
+`data/projetos.json` — ou seja, do primeiro projeto do perfil no Behance. Para trocar o destaque,
+mude a ordem no Behance (ou dos vídeos dentro do projeto).
+
+Os pontos ao lado do vídeo vêm do campo opcional `destaques` do projeto:
+
+```json
+"destaques": [
+  { "titulo": "Conexão", "texto": "B-roll de lifestyle que aproxima o público da história" }
+]
+```
+
+Sem esse campo, aparece a `descricao` do projeto.
+
+## Reel e WhatsApp
 
 Em `data/site.json`:
 
 ```json
 {
   "reel":     { "tipo": "youtube", "id": "XXXXXXXXXXX", "formato": "16:9" },
-  "destaque": { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "titulo": "VSL — Saúde e bem-estar" },
   "whatsapp": "5511999999999"
 }
 ```

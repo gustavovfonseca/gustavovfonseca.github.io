@@ -12,6 +12,8 @@ e data de cada projeto; ele NÃO traz os vídeos. Por isso:
 - Projeto apagado no Behance -> sai do site (só quando é certo que ele deveria
   aparecer no feed; veja `remover_ausentes`).
 - Ordem dos projetos -> igual à do perfil no Behance (o feed vem nessa ordem).
+- Vídeos de cada projeto -> o feed não traz; com --videos, aplica a lista gerada
+  por scripts/coletar-videos.js no navegador (mesma ordem do Behance).
 - Se nada mudou, o arquivo não é regravado.
 
 Uso:
@@ -187,8 +189,72 @@ def sincronizar(projetos, itens, remover_ausentes=True):
     return ordenado, log
 
 
+def ler_mapa_videos(texto):
+    """Valida o JSON gerado por scripts/coletar-videos.js: {"<id do projeto>": [vídeos]}."""
+    mapa = json.loads(texto)
+    if not isinstance(mapa, dict):
+        raise ValueError("a lista de vídeos deve ser um objeto {id do projeto: [vídeos]}")
+    for pid, videos in mapa.items():
+        if not re.fullmatch(r"\d+", str(pid)) or not isinstance(videos, list):
+            raise ValueError(f"entrada inválida para o projeto {pid!r}")
+        for v in videos:
+            if not isinstance(v, dict) or v.get("tipo") not in ("behance", "youtube", "vimeo") \
+                    or not re.fullmatch(r"[A-Za-z0-9_-]{1,40}", str(v.get("id", ""))):
+                raise ValueError(f"vídeo inválido no projeto {pid}: {v!r}")
+    return mapa
+
+
+def aplicar_videos(projetos, mapa):
+    """Aplica a lista e a ordem dos vídeos vindas do Behance. Mantém dados extras
+    (como "duracao") dos vídeos que já existiam. Devolve (nova_lista, log)."""
+    log = []
+    resultado = []
+    for p in projetos:
+        pid = id_do_link(p.get("behance", ""))
+        if pid not in mapa:
+            resultado.append(p)
+            continue
+        existentes = {(v.get("tipo"), v.get("id")): v for v in p.get("videos", [])}
+        novos = []
+        for v in mapa[pid]:
+            atual = existentes.get((v["tipo"], v["id"]))
+            item = dict(atual) if atual else {"tipo": v["tipo"], "id": v["id"]}
+            if v.get("formato"):
+                item["formato"] = v["formato"]
+            novos.append(item)
+        if novos != p.get("videos", []):
+            antes = [v.get("id") for v in p.get("videos", [])]
+            depois = [v["id"] for v in novos]
+            if sorted(antes) == sorted(depois):
+                log.append(f"~ ordem dos vídeos atualizada: {p.get('titulo')}")
+            else:
+                log.append(f"~ vídeos atualizados: {p.get('titulo')} ({len(antes)} -> {len(depois)})")
+            p = dict(p, videos=novos)
+        resultado.append(p)
+    return resultado, log
+
+
+def preencher_duracoes(projetos):
+    """Busca a duração dos vídeos do Behance que ainda não têm "duracao".
+    Usa a página pública do player; se falhar, o vídeo só fica sem duração."""
+    for p in projetos:
+        for v in p.get("videos", []):
+            if v.get("tipo") != "behance" or v.get("duracao"):
+                continue
+            url = f"https://www-ccv.adobe.io/v1/player/ccv/{v['id']}/embed?api_key=behance1"
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    m = re.search(rb'"duration"\s*:\s*([\d.]+)', r.read())
+                if m:
+                    seg = round(float(m.group(1)))
+                    v["duracao"] = f"{seg // 60}:{seg % 60:02d}"
+            except Exception as e:  # noqa: BLE001 — duração é opcional
+                print(f"  (sem duração para {v['id']}: {e})")
+
+
 def para_json(projetos):
-    """JSON com 2 espaços e um vídeo por linha, igual ao arquivo editado à mão."""
+    """JSON com 2 espaços, um vídeo e um ponto de destaque por linha, igual ao arquivo editado à mão."""
     texto = json.dumps(projetos, ensure_ascii=False, indent=2)
 
     def compactar(m):
@@ -197,6 +263,7 @@ def para_json(projetos):
 
     # Junta em uma linha cada objeto dentro de "videos" e cada lista de "ferramentas".
     texto = re.sub(r"\{\n\s+\"tipo\"[^{}]*?\n\s+\}", compactar, texto)
+    texto = re.sub(r"\{\n\s+\"titulo\": \"[^\"\n]*\",\n\s+\"texto\": \"[^\"\n]*\"\n\s+\}", compactar, texto)
     texto = re.sub(r"\"ferramentas\": \[\n\s+([^\]]*?)\n\s+\]",
                    lambda m: '"ferramentas": [' + ", ".join(s.strip() for s in m.group(1).split(",\n")) + "]",
                    texto)
@@ -207,6 +274,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--feed", help="arquivo RSS local em vez de baixar")
     ap.add_argument("--usuario", help="usuário do Behance (padrão: data/site.json → behance)")
+    ap.add_argument("--videos", help="arquivo JSON gerado por scripts/coletar-videos.js")
+    ap.add_argument("--sem-duracao", action="store_true", help="não busca a duração de vídeos novos")
     ap.add_argument("--dry-run", action="store_true", help="não grava, só mostra")
     args = ap.parse_args()
 
@@ -223,6 +292,13 @@ def main():
     texto_atual = PROJETOS.read_text(encoding="utf-8")
     atual = json.loads(texto_atual)
     novo, log = sincronizar(atual, itens)
+    if args.videos:
+        texto_videos = Path(args.videos).read_text(encoding="utf-8").strip()
+        if texto_videos:
+            novo, log_videos = aplicar_videos(novo, ler_mapa_videos(texto_videos))
+            log += log_videos
+    if not args.sem_duracao:
+        preencher_duracoes(novo)
     texto_novo = para_json(novo)
     print(f"Feed: {len(itens)} projetos. Site: {len(atual)} -> {len(novo)} projetos.")
 

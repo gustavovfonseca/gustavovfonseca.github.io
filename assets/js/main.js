@@ -172,11 +172,6 @@
       });
     }
 
-    var destaqueBtn = document.querySelector('[data-video="destaque"]');
-    destaqueBtn.addEventListener('click', function () {
-      var d = config.destaque || null;
-      abrir(d ? [d] : null, d && d.titulo, destaqueBtn);
-    });
 
     var zap = document.getElementById('whatsapp');
     var numero = String(config.whatsapp || '').replace(/\D/g, '');
@@ -318,6 +313,71 @@
     });
   }
 
+  /* ---------- Em destaque: primeiro vídeo do primeiro projeto da lista ---------- */
+  var destaqueVideo = null;
+  var destaqueBtn = document.getElementById('destaque-btn');
+  destaqueBtn.addEventListener('click', function () {
+    if (destaqueVideo) abrir([destaqueVideo], destaqueVideo.titulo, destaqueBtn);
+  });
+
+  function aplicarDestaque() {
+    var p = projetos.filter(function (x) { return x.videos && x.videos.length; })[0];
+    if (!p) return;
+    var v = p.videos[0];
+    destaqueVideo = Object.assign({ titulo: p.titulo }, v);
+
+    document.getElementById('destaque-eyebrow').textContent = 'EM DESTAQUE · ' + p.titulo.toUpperCase();
+    document.getElementById('destaque-meta').textContent = [v.formato, v.duracao].filter(Boolean).join(' · ');
+    destaqueBtn.setAttribute('aria-label', 'Assistir ' + p.titulo);
+
+    var capa = document.getElementById('destaque-capa');
+    if (p.capa) {
+      if (!capa) {
+        capa = document.createElement('img');
+        capa.className = 'screen__img';
+        capa.id = 'destaque-capa';
+        capa.alt = '';
+        capa.referrerPolicy = 'no-referrer';
+        capa.onerror = function () { capa.remove(); };
+        destaqueBtn.insertBefore(capa, destaqueBtn.firstChild);
+      }
+      if (capa.getAttribute('src') !== p.capa) capa.src = p.capa;
+    } else if (capa) {
+      capa.remove();
+    }
+
+    // Pontos do destaque: campo opcional "destaques" no projeto; sem ele, mostra a descrição.
+    var pontos = document.getElementById('destaque-pontos');
+    var desc = document.getElementById('destaque-desc');
+    if (p.destaques && p.destaques.length) {
+      pontos.textContent = '';
+      p.destaques.forEach(function (d, n) {
+        var li = document.createElement('li');
+        var num = document.createElement('span');
+        num.className = 'mono muted';
+        num.textContent = String(n + 1).padStart(2, '0');
+        var txt = document.createElement('span');
+        if (d.titulo) {
+          var b = document.createElement('b');
+          b.textContent = d.titulo;
+          txt.appendChild(b);
+          txt.appendChild(document.createTextNode(' — ' + (d.texto || '')));
+        } else {
+          txt.textContent = d.texto || '';
+        }
+        li.appendChild(num);
+        li.appendChild(txt);
+        pontos.appendChild(li);
+      });
+      pontos.hidden = false;
+      desc.hidden = true;
+    } else {
+      pontos.hidden = true;
+      desc.textContent = p.descricao || '';
+      desc.hidden = !p.descricao;
+    }
+  }
+
   carregar('data/site.json')
     .then(function (c) { config = c || {}; })
     .catch(function (e) { console.warn('Não consegui ler site.json', e); })
@@ -326,9 +386,7 @@
   carregar('data/projetos.json')
     .then(function (itens) {
       projetos = (itens || []).filter(function (p) { return p && p.titulo && p.categoria && !p.oculto; });
-      var total = projetos.reduce(function (s, p) { return s + (p.videos || []).length; }, 0);
-      var totalEl = document.getElementById('total-videos');
-      if (totalEl && total) totalEl.textContent = total;
+      aplicarDestaque();
       renderizarFiltros();
       renderizarGrade();
     })
