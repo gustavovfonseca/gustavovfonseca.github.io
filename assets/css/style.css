@@ -145,17 +145,17 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .section--accent { background: var(--violeta); padding-top: 112px; padding-bottom: 112px; }
 #inicio { padding-top: 88px; }
 /* No computador, a frase principal ocupa exatamente uma tela: o "Role para baixo" a enquadra inteira.
-   O tamanho do título acompanha a altura da janela (botões nunca cortados) e fica em no máximo 139px,
-   que é o que cabe na coluna de 1200px sem "VÍDEOS QUE VENDEM." quebrar em duas linhas. */
+   O título tem uma frase por linha; o tamanho acompanha a largura (a linha mais longa,
+   "CORTES QUE PRENDEM.", mede ~9,3x o tamanho da fonte) e a altura da janela, até 127px. */
 @media (min-width: 761px) {
   #inicio {
     min-height: 100vh; min-height: 100svh;
     display: flex; flex-direction: column; justify-content: center;
     padding-top: 64px; padding-bottom: 64px;
   }
-  #inicio .display { font-size: clamp(56px, min(10vw, 139px, calc((100vh - 380px) / 3.42)), 139px); }
+  #inicio .display { font-size: clamp(48px, min(9.4vw, 127px, calc((100vh - 380px) / 2.28)), 127px); }
   @supports (height: 100svh) {
-    #inicio .display { font-size: clamp(56px, min(10vw, 139px, calc((100svh - 380px) / 3.42)), 139px); }
+    #inicio .display { font-size: clamp(48px, min(9.4vw, 127px, calc((100svh - 380px) / 2.28)), 127px); }
   }
 }
 
