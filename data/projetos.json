@@ -1,18 +1,15 @@
 [
   {
-    "titulo": "Motion",
-    "categoria": "Motion",
-    "descricao": "Peças curtas de motion graphics em formato quadrado para redes sociais.",
-    "ferramentas": [],
-    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/8df806221991949.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
-    "behance": "https://www.behance.net/gallery/221991949/MOTION",
+    "titulo": "VSL — Saúde e bem-estar",
+    "categoria": "Direct Response",
+    "descricao": "VSL de resposta direta com edição cinematográfica: B-roll de lifestyle e macro para construir autoridade e conexão, com cada transição pensada para manter a retenção até o CTA.",
+    "ferramentas": ["After Effects"],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/e1bec3244854199.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/244854199/DIRECT-RESPONSE-VIDEOS",
     "videos": [
-      { "tipo": "behance", "id": "QR_46JPQ3pz", "formato": "1:1", "duracao": "0:10" },
-      { "tipo": "behance", "id": "WJC4XYMIawR", "formato": "1:1", "duracao": "0:09" },
-      { "tipo": "behance", "id": "JxLwvbrtFNH", "formato": "1:1", "duracao": "0:07" },
-      { "tipo": "behance", "id": "9aozLmhdv6I", "formato": "1:1", "duracao": "0:11" }
+      { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "duracao": "2:26" }
     ],
-    "publicado": "2025-03-21"
+    "publicado": "2026-02-26"
   },
   {
     "titulo": "Criativos e Reels",
@@ -33,35 +30,19 @@
     "publicado": "2025-08-12"
   },
   {
-    "titulo": "TikTok Shop",
-    "categoria": "Direct Response",
-    "descricao": "Vídeos verticais de venda de produto, no formato e no ritmo que o TikTok Shop favorece.",
-    "ferramentas": ["CapCut", "Premiere Pro", "After Effects"],
-    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/4bcf88236984135.Y3JvcCwxMTM0LDg4NiwzOTIsOTU.jpg",
-    "behance": "https://www.behance.net/gallery/236984135/TIKTOK-SHOP",
+    "titulo": "Motion",
+    "categoria": "Motion",
+    "descricao": "Peças curtas de motion graphics em formato quadrado para redes sociais.",
+    "ferramentas": [],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/8df806221991949.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/221991949/MOTION",
     "videos": [
-      { "tipo": "behance", "id": "Fsmhp3IKNkj", "formato": "9:16", "duracao": "0:37" },
-      { "tipo": "behance", "id": "PSaEH2qQ9s9", "formato": "9:16", "duracao": "2:04" },
-      { "tipo": "behance", "id": "-_sYL2L3Lso", "formato": "9:16", "duracao": "1:57" },
-      { "tipo": "behance", "id": "6Nf9sx3C2zQ", "formato": "9:16", "duracao": "2:09" },
-      { "tipo": "behance", "id": "BSKycizBwmD", "formato": "9:16", "duracao": "2:02" },
-      { "tipo": "behance", "id": "Tiip2a5pZhE", "formato": "9:16", "duracao": "2:10" },
-      { "tipo": "behance", "id": "CQNNP7CTSp4", "formato": "9:16", "duracao": "1:40" },
-      { "tipo": "behance", "id": "Vn2YipNd2Tp", "formato": "9:16", "duracao": "1:42" }
+      { "tipo": "behance", "id": "QR_46JPQ3pz", "formato": "1:1", "duracao": "0:10" },
+      { "tipo": "behance", "id": "WJC4XYMIawR", "formato": "1:1", "duracao": "0:09" },
+      { "tipo": "behance", "id": "JxLwvbrtFNH", "formato": "1:1", "duracao": "0:07" },
+      { "tipo": "behance", "id": "9aozLmhdv6I", "formato": "1:1", "duracao": "0:11" }
     ],
-    "publicado": "2025-10-21"
-  },
-  {
-    "titulo": "VSL — Saúde e bem-estar",
-    "categoria": "Direct Response",
-    "descricao": "VSL de resposta direta com edição cinematográfica: B-roll de lifestyle e macro para construir autoridade e conexão, com cada transição pensada para manter a retenção até o CTA.",
-    "ferramentas": ["After Effects"],
-    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/e1bec3244854199.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
-    "behance": "https://www.behance.net/gallery/244854199/DIRECT-RESPONSE-VIDEOS",
-    "videos": [
-      { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "duracao": "2:26" }
-    ],
-    "publicado": "2026-02-26"
+    "publicado": "2025-03-21"
   },
   {
     "titulo": "TikToks",
@@ -118,5 +99,24 @@
       { "tipo": "behance", "id": "BdVMZo4Kujc", "formato": "16:9", "duracao": "2:51" }
     ],
     "publicado": "2025-03-21"
+  },
+  {
+    "titulo": "TikTok Shop",
+    "categoria": "Direct Response",
+    "descricao": "Vídeos verticais de venda de produto, no formato e no ritmo que o TikTok Shop favorece.",
+    "ferramentas": ["CapCut", "Premiere Pro", "After Effects"],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/4bcf88236984135.Y3JvcCwxMTM0LDg4NiwzOTIsOTU.jpg",
+    "behance": "https://www.behance.net/gallery/236984135/TIKTOK-SHOP",
+    "videos": [
+      { "tipo": "behance", "id": "Fsmhp3IKNkj", "formato": "9:16", "duracao": "0:37" },
+      { "tipo": "behance", "id": "PSaEH2qQ9s9", "formato": "9:16", "duracao": "2:04" },
+      { "tipo": "behance", "id": "-_sYL2L3Lso", "formato": "9:16", "duracao": "1:57" },
+      { "tipo": "behance", "id": "6Nf9sx3C2zQ", "formato": "9:16", "duracao": "2:09" },
+      { "tipo": "behance", "id": "BSKycizBwmD", "formato": "9:16", "duracao": "2:02" },
+      { "tipo": "behance", "id": "Tiip2a5pZhE", "formato": "9:16", "duracao": "2:10" },
+      { "tipo": "behance", "id": "CQNNP7CTSp4", "formato": "9:16", "duracao": "1:40" },
+      { "tipo": "behance", "id": "Vn2YipNd2Tp", "formato": "9:16", "duracao": "1:42" }
+    ],
+    "publicado": "2025-10-21"
   }
 ]
