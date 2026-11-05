@@ -22,12 +22,12 @@
     "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/ad4131232391725.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
     "behance": "https://www.behance.net/gallery/232391725/CRIATIVOSREELS",
     "videos": [
+      { "tipo": "behance", "id": "-WomML9BkjD", "formato": "9:16", "duracao": "0:40" },
+      { "tipo": "behance", "id": "6FSx2SJUjGS", "formato": "9:16", "duracao": "0:36" },
       { "tipo": "behance", "id": "VNd_Vfp7wDz", "formato": "9:16", "duracao": "1:08" },
       { "tipo": "behance", "id": "Sjab3wVvA7A", "formato": "9:16", "duracao": "0:46" },
       { "tipo": "behance", "id": "Nhh9ZXt3Mwy", "formato": "9:16", "duracao": "1:27" },
       { "tipo": "behance", "id": "ArqSCJYnZ6F", "formato": "9:16", "duracao": "0:38" },
-      { "tipo": "behance", "id": "-WomML9BkjD", "formato": "9:16", "duracao": "0:40" },
-      { "tipo": "behance", "id": "6FSx2SJUjGS", "formato": "9:16", "duracao": "0:36" },
       { "tipo": "behance", "id": "-Gw9KGdjnJk", "formato": "9:16", "duracao": "0:46" }
     ],
     "publicado": "2025-08-12"
