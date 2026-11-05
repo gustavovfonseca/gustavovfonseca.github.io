@@ -76,25 +76,19 @@
       </div>
     </section>
 
-    <!-- EM DESTAQUE — é sempre o primeiro vídeo do primeiro projeto de data/projetos.json.
-         O conteúdo abaixo é só o que aparece antes do JavaScript carregar. -->
+    <!-- EM DESTAQUE — preenchido pelo JavaScript com o primeiro vídeo do primeiro projeto
+         de data/projetos.json (veja aplicarDestaque em assets/js/main.js). -->
     <section class="section section--graphite" id="destaque">
       <div class="wrap split">
         <div class="stack split__main">
-          <p class="eyebrow" id="destaque-eyebrow">EM DESTAQUE · VSL — SAÚDE E BEM-ESTAR</p>
+          <p class="eyebrow" id="destaque-eyebrow">EM DESTAQUE</p>
           <h2 class="title">Retenção do primeiro ao último segundo.</h2>
-          <ol class="beats" id="destaque-pontos">
-            <li><span class="mono muted">01</span><span><b>Conexão</b> — B-roll de lifestyle que aproxima o público da história</span></li>
-            <li><span class="mono muted">02</span><span><b>Autoridade</b> — cinematografia macro que dá peso científico ao produto</span></li>
-            <li><span class="mono muted">03</span><span><b>Retenção</b> — cada transição pensada para segurar a atenção</span></li>
-            <li><span class="mono muted">04</span><span><b>Ação</b> — a narrativa conduz a uma chamada clara</span></li>
-          </ol>
+          <ol class="beats" id="destaque-pontos" hidden></ol>
           <p class="lead" id="destaque-desc" hidden></p>
         </div>
-        <button class="screen" type="button" id="destaque-btn" aria-label="Assistir VSL — Saúde e bem-estar">
-          <img class="screen__img" id="destaque-capa" src="https://mir-s3-cdn-cf.behance.net/projects/original_webp/e1bec3244854199.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+        <button class="screen" type="button" id="destaque-btn" aria-label="Assistir o vídeo em destaque">
           <span class="play play--lg" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#000"/></svg></span>
-          <span class="screen__meta mono" id="destaque-meta">16:9 · 2:26</span>
+          <span class="screen__meta mono" id="destaque-meta"></span>
         </button>
       </div>
     </section>
