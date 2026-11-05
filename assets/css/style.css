@@ -156,9 +156,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 
 .display {
   font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
-  font-size: clamp(56px, 10vw, 156px); line-height: .92; letter-spacing: -1px;
+  font-size: clamp(56px, 10vw, 156px); line-height: 1.04; letter-spacing: -1px;
 }
-.display--md { font-size: clamp(44px, 7vw, 112px); line-height: .95; }
+.display--md { font-size: clamp(44px, 7vw, 112px); line-height: 1.06; }
 .title {
   font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
   font-size: clamp(38px, 5vw, 64px); line-height: 1.02;
