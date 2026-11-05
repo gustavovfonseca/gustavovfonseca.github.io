@@ -1,0 +1,51 @@
+name: Sincronizar com o Behance
+
+# Lê o feed RSS público do Behance e atualiza data/projetos.json.
+# Roda todo dia e também pode ser disparado à mão na aba Actions.
+on:
+  schedule:
+    - cron: "17 9 * * *" # 06:17 em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write # para commitar data/projetos.json
+  actions: write  # para disparar a publicação do site
+
+concurrency:
+  group: behance-sync
+  cancel-in-progress: false
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ler o Behance e atualizar a lista de projetos
+        run: python3 scripts/sync_behance.py
+
+      - name: Checar se o JSON continua válido
+        run: python3 -m json.tool data/projetos.json > /dev/null
+
+      - name: Salvar mudanças
+        id: commit
+        run: |
+          if git diff --quiet -- data/projetos.json; then
+            echo "Nenhuma mudança no Behance."
+            echo "mudou=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/projetos.json
+          git commit -m "Atualiza projetos a partir do Behance"
+          git push
+          echo "mudou=true" >> "$GITHUB_OUTPUT"
+
+      # Commits feitos pela própria Action não disparam outros workflows,
+      # então a publicação é chamada aqui de forma explícita.
+      - name: Publicar o site
+        if: steps.commit.outputs.mudou == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

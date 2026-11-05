@@ -12,8 +12,9 @@ assets/js/main.js       vinheta, filtros, grade de trabalhos e player
 assets/img/             logo, favicon e imagem de compartilhamento
 assets/video/           vinheta de abertura e o quadro final (poster)
 data/projetos.json      lista de trabalhos da grade
-data/site.json          reel, anúncio em destaque e WhatsApp
-.github/workflows/      publicação automática no GitHub Pages
+data/site.json          usuário do Behance, reel, anúncio em destaque e WhatsApp
+scripts/sync_behance.py lê o feed do Behance e atualiza data/projetos.json
+.github/workflows/      publicação no GitHub Pages e sincronização com o Behance
 ```
 
 ## Como publicar (uma vez)
@@ -31,6 +32,40 @@ data/site.json          reel, anúncio em destaque e WhatsApp
 
 Em **Settings → Pages → Custom domain**, informe o domínio (ex.: `gustavofonseca.com.br`) e
 configure no registro do domínio os apontamentos indicados pelo GitHub.
+
+## Sincronização automática com o Behance
+
+O workflow **Sincronizar com o Behance** roda todo dia às 06:17 (Brasília) e pode ser disparado
+à mão em **Actions → Sincronizar com o Behance → Run workflow**. Ele lê o feed RSS público do
+perfil (`https://www.behance.net/feeds/user?username=gustavofonseca37`) e:
+
+- **Projeto novo no Behance** → entra no site com título, capa, descrição e uma categoria
+  sugerida. Como o feed não traz os vídeos, o card abre a página do projeto no Behance até que
+  os vídeos sejam adicionados em `videos` (veja abaixo).
+- **Projeto que já está no site** → atualiza link, capa e data. Título, categoria, descrição,
+  ferramentas, vídeos e `oculto` editados à mão **nunca são sobrescritos**.
+- **Projeto apagado no Behance** → sai do site.
+
+Quando algo muda, o workflow faz o commit em `data/projetos.json` e publica o site sozinho.
+Para testar sem gravar nada: `python3 scripts/sync_behance.py --dry-run`.
+
+> O Behance bloqueia leitura automática das páginas de projeto, por isso a sincronização usa só
+> o feed RSS, que é público e feito para isso.
+
+### Pegar os vídeos de um projeto novo
+
+1. Abra o projeto no Behance, no navegador do computador.
+2. Abra o console do navegador (F12 → Console), cole o código abaixo e aperte Enter.
+3. A lista de vídeos é copiada; cole no campo `"videos": [...]` do projeto em `data/projetos.json`.
+
+```js
+copy(JSON.stringify([...document.querySelectorAll('iframe')].map(f => {
+  const ccv = f.src.match(/ccv\/([^/]+)\/embed/), yt = f.src.match(/youtube\.com\/embed\/([^?]+)/);
+  const r = f.closest('.embed-aspect-ratio'), pb = r ? parseFloat(r.style.paddingBottom) : 56.25;
+  const formato = pb > 150 ? '9:16' : pb > 90 ? '1:1' : '16:9';
+  return ccv ? { tipo: 'behance', id: ccv[1], formato } : yt ? { tipo: 'youtube', id: yt[1], formato } : null;
+}).filter(Boolean), null, 2))
+```
 
 ## Como adicionar ou trocar um trabalho
 

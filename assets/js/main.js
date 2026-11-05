@@ -245,10 +245,18 @@
     tile.appendChild(topo);
     tile.appendChild(play);
     tile.appendChild(fmt);
-    tile.addEventListener('click', function () {
-      var vids = (p.videos || []).map(function (v) { return Object.assign({ titulo: p.titulo }, v); });
-      abrir(vids, p.titulo, tile);
-    });
+    if (qtd === 0 && p.behance) {
+      // Projeto novo, ainda sem vídeos cadastrados: abre a página dele no Behance.
+      tile.setAttribute('aria-label', 'Ver ' + p.titulo + ' no Behance (abre em nova aba)');
+      fmt.textContent = 'Ver no Behance ↗';
+      play.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+      tile.addEventListener('click', function () { window.open(p.behance, '_blank', 'noopener'); });
+    } else {
+      tile.addEventListener('click', function () {
+        var vids = (p.videos || []).map(function (v) { return Object.assign({ titulo: p.titulo }, v); });
+        abrir(vids, p.titulo, tile);
+      });
+    }
 
     var corpo = document.createElement('div');
     corpo.className = 'work__body';
