@@ -133,6 +133,5 @@ e abra `http://localhost:8000`.
 
 - [ ] Link do reel (`data/site.json`) — sem ele o botão "Ver reel" fica escondido
 - [ ] Número de WhatsApp (`data/site.json`)
-- [ ] Foto do Gustavo: salvar como `assets/img/gustavo.jpg` e trocar o bloco `[FOTO DO GUSTAVO]` no `index.html`
 - [ ] Métricas de resultado (ROAS, retenção) e logos de clientes, se puderem ser divulgados
 - [ ] Vinheta final sem a marca d'água "Veo" e com "captured" escrito certo
