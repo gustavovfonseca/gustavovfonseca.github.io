@@ -12,6 +12,7 @@ assets/css/style.css      estilos (cores no topo do arquivo)
 assets/js/main.js         vinheta, player e filtros
 assets/img/, assets/video logo, foto, favicon, imagem de compartilhamento e vinheta
 404.html                  página de "não encontrado"
+publico/                  arquivos copiados sem alteração para a raiz do site (ex.: verificação do Google)
 scripts/build_site.py     monta o site final em _site/ (roda na publicação)
 scripts/sync_behance.py   lê o feed do Behance e atualiza data/projetos.json
 scripts/coletar-videos.js coleta no navegador a lista de vídeos de cada projeto

@@ -379,6 +379,12 @@ def montar(saida):
     (saida / "index.html").write_text(pagina, encoding="utf-8")
     shutil.copytree(RAIZ / "assets", saida / "assets")
     shutil.copy2(RAIZ / "404.html", saida / "404.html")
+    # Arquivos que precisam ficar na raiz do site sem alteração (ex.: verificação do Google).
+    publico = RAIZ / "publico"
+    if publico.is_dir():
+        for arquivo in publico.iterdir():
+            if arquivo.is_file():
+                shutil.copy2(arquivo, saida / arquivo.name)
 
     hoje = dt.date.today().isoformat()
     (saida / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {url}/sitemap.xml\n", encoding="utf-8")
