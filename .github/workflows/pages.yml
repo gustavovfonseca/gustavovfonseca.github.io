@@ -31,7 +31,7 @@ jobs:
       - name: Montar a pasta publicada
         run: |
           mkdir -p _site
-          cp -r index.html 404.html .nojekyll assets data _site/
+          cp -r index.html 404.html assets data _site/
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
