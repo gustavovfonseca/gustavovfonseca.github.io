@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gustavo Fonseca — Editor de vídeo · Direct Response | Fonsekai Archive</title>
+  <meta name="description" content="Gustavo Fonseca, editor de vídeo e motion designer em São Paulo. VSLs, criativos para tráfego pago, TikTok Shop e motion com foco em Direct Response.">
+  <meta name="theme-color" content="#000000">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Gustavo Fonseca — Cortes que prendem. Vídeos que vendem.">
+  <meta property="og:description" content="Editor de vídeo e motion designer focado em Direct Response.">
+  <meta property="og:image" content="assets/img/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+
+  <!-- ABERTURA: vinheta da marca -->
+  <header class="hero" id="topo">
+    <video class="hero__video" id="vinheta" src="assets/video/vinheta.mp4" poster="assets/video/vinheta-poster.jpg"
+           muted playsinline preload="auto" aria-label="Vinheta de abertura Fonsekai Archive"></video>
+    <div class="hero__shade" aria-hidden="true"></div>
+
+    <nav class="nav" aria-label="Principal">
+      <a class="nav__logo" href="#topo" aria-label="Fonsekai Archive — início">
+        <img src="assets/img/logo.png" alt="Fonsekai Archive" width="373" height="96">
+      </a>
+      <div class="nav__links">
+        <a class="nav__text" href="#trabalhos">Trabalhos</a>
+        <a class="nav__text" href="#servicos">Serviços</a>
+        <a class="nav__text" href="#sobre">Sobre</a>
+        <a class="btn btn--accent btn--sm" href="#contato">Fale comigo</a>
+      </div>
+    </nav>
+
+    <div class="hero__bottom">
+      <div class="hero__meta">
+        <p class="hero__rec mono"><span>● REC</span><span class="hero__tc">FONSEKAI ARCHIVE · 00:00:08:02</span></p>
+        <div class="hero__cue-wrap">
+          <a class="hero__cue" id="cue" href="#inicio" aria-label="Rolar para o conteúdo" hidden>
+            <span class="hero__cue-label">ROLE PARA BAIXO</span>
+            <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </div>
+        <button class="reel-btn" type="button" data-video="reel" hidden>
+          <span class="reel-btn__dot"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#000"/></svg></span>
+          Ver reel
+        </button>
+      </div>
+      <div class="hero__bar" aria-hidden="true"><div class="hero__bar-fill" id="barra"></div></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- FRASE PRINCIPAL -->
+    <section class="section section--black" id="inicio" tabindex="-1">
+      <div class="wrap stack">
+        <span class="chip">EDITOR DE VÍDEO · DIRECT RESPONSE</span>
+        <h1 class="display">Cortes que<br>prendem.<br><span class="accent">Vídeos que vendem.</span></h1>
+        <p class="lead">Mais de cinco anos editando VSLs, criativos para tráfego pago, TikTok Shop e motion. Storytelling visual pensado para quem precisa de resultado.</p>
+        <div class="actions">
+          <a class="btn btn--accent" href="#trabalhos">Ver trabalhos</a>
+          <a class="btn btn--outline" href="#contato">Pedir orçamento</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANÚNCIO EM DESTAQUE -->
+    <section class="section section--graphite">
+      <div class="wrap split">
+        <div class="stack split__main">
+          <p class="eyebrow">ANÚNCIO EM DESTAQUE</p>
+          <h2 class="title">Retenção nos primeiros 3 segundos. Conversão até o último.</h2>
+          <ol class="beats">
+            <li><span class="mono muted">0–3 s</span><span><b>Hook</b> — a primeira imagem segura o dedo</span></li>
+            <li><span class="mono muted">3–10 s</span><span><b>Problema</b> — ritmo e legenda mantêm a atenção</span></li>
+            <li><span class="mono muted">10–25 s</span><span><b>Oferta</b> — prova e benefício na tela</span></li>
+            <li><span class="mono muted">final</span><span><b>CTA</b> — uma ação clara</span></li>
+          </ol>
+          <!-- PREENCHER: trocar os tempos acima pelos do anúncio real escolhido -->
+        </div>
+        <div class="phone">
+          <span class="mono phone__label">ANÚNCIO EM DESTAQUE</span>
+          <button class="play play--lg" type="button" data-video="destaque" aria-label="Assistir anúncio em destaque">
+            <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#000"/></svg>
+          </button>
+          <span class="mono phone__label">9:16</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADOS — PREENCHER com números reais ou remover os cards sem dado -->
+    <section class="section section--black section--tight">
+      <div class="wrap stack">
+        <p class="eyebrow">RESULTADOS</p>
+        <div class="grid grid--3">
+          <div class="card card--metric"><span class="metric">[__]x</span><span class="muted">ROAS médio dos criativos</span></div>
+          <div class="card card--metric"><span class="metric">[__]%</span><span class="muted">retenção nos 3 primeiros segundos</span></div>
+          <div class="card card--metric"><span class="metric">5+</span><span class="muted">anos editando vídeo</span></div>
+        </div>
+        <div class="clients">
+          <span>Já editei para:</span>
+          <span class="clients__slot">[LOGO CLIENTE]</span>
+          <span class="clients__slot">[LOGO CLIENTE]</span>
+          <span class="clients__slot">[LOGO CLIENTE]</span>
+          <span class="clients__slot">[LOGO CLIENTE]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRABALHOS — a grade é montada a partir de data/projetos.json -->
+    <section class="section section--graphite" id="trabalhos">
+      <div class="wrap stack">
+        <div class="section-head">
+          <h2 class="title">Trabalhos</h2>
+          <span class="muted">Toque em um vídeo para assistir completo</span>
+        </div>
+        <div class="filters" id="filtros" role="group" aria-label="Filtrar trabalhos por categoria"></div>
+        <div class="works" id="grade" aria-live="polite"></div>
+        <noscript><p class="muted">Ative o JavaScript para ver os trabalhos.</p></noscript>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="section section--black" id="servicos">
+      <div class="wrap stack">
+        <h2 class="title">O que eu entrego</h2>
+        <div class="grid grid--4">
+          <div class="card"><span class="mono muted">01</span><h3>VSLs e anúncios de resposta direta</h3><p class="muted">Edição orientada a hook, retenção e chamada para ação.</p></div>
+          <div class="card"><span class="mono muted">02</span><h3>Criativos para tráfego pago</h3><p class="muted">Variações de Reels e TikTok para testar ganchos e ofertas.</p></div>
+          <div class="card"><span class="mono muted">03</span><h3>TikTok Shop</h3><p class="muted">Vídeos de produto no formato que a plataforma favorece.</p></div>
+          <div class="card"><span class="mono muted">04</span><h3>Motion graphics</h3><p class="muted">Legendas animadas, vinhetas e elementos que seguram a atenção.</p></div>
+        </div>
+        <p class="process mono"><span class="process__label">Como funciona:</span> Briefing → Roteiro de cortes → Edição → Ajustes → Entrega por formato</p>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="section section--graphite" id="sobre">
+      <div class="wrap split split--about">
+        <div class="photo">[FOTO DO GUSTAVO]</div>
+        <!-- PREENCHER: trocar o div acima por <img class="photo" src="assets/img/gustavo.jpg" alt="Gustavo Fonseca"> -->
+        <div class="stack split__main">
+          <h2 class="title">Sobre</h2>
+          <p class="lead lead--light">Sou o Gustavo Fonseca, editor de vídeo há mais de cinco anos e motion designer em São Paulo. Hoje meu foco é Direct Response: transformar storytelling visual em conteúdo que converte.</p>
+          <ul class="tags">
+            <li>[FERRAMENTA]</li><li>[FERRAMENTA]</li><li>[FERRAMENTA]</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="section section--accent" id="contato">
+      <div class="wrap stack">
+        <h2 class="display display--md">Seu próximo criativo<br>começa aqui.</h2>
+        <div class="actions">
+          <a class="btn btn--dark" href="mailto:gustavov.fonseca02@gmail.com">Enviar e-mail</a>
+          <a class="btn btn--outline" id="whatsapp" href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+          <a class="btn btn--outline" href="https://instagram.com/gustavofons_" target="_blank" rel="noopener">Instagram @gustavofons_</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="footer__brand"><img src="assets/img/logo.png" alt="Fonsekai Archive" width="124" height="32">Gustavo Fonseca · Editor de vídeo · São Paulo</span>
+    <span class="mono">© <span id="ano">2026</span> Fonsekai Archive</span>
+  </footer>
+
+  <!-- Player em janela (abre os vídeos completos) -->
+  <dialog class="player" id="player" aria-label="Vídeo">
+    <div class="player__box" id="player-box"></div>
+    <button class="player__close" type="button" id="player-fechar" aria-label="Fechar vídeo">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </dialog>
+</body>
+</html>

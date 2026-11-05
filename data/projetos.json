@@ -1,0 +1,74 @@
+[
+  {
+    "titulo": "VSL — [nome do produto]",
+    "categoria": "Direct Response",
+    "formato": "9:16",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  },
+  {
+    "titulo": "Anúncio de oferta — [cliente]",
+    "categoria": "Direct Response",
+    "formato": "9:16",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  },
+  {
+    "titulo": "Vídeo de produto — [marca]",
+    "categoria": "TikTok Shop",
+    "formato": "9:16",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  },
+  {
+    "titulo": "Criativo para Reels — [marca]",
+    "categoria": "Criativos",
+    "formato": "9:16",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  },
+  {
+    "titulo": "Teste de ganchos — [marca]",
+    "categoria": "Criativos",
+    "formato": "9:16",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  },
+  {
+    "titulo": "Vinheta animada — [cliente]",
+    "categoria": "Motion",
+    "formato": "16:9",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  },
+  {
+    "titulo": "Corte de podcast — [programa]",
+    "categoria": "Podcasts",
+    "formato": "9:16",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  },
+  {
+    "titulo": "Tutorial — [tema]",
+    "categoria": "Tutoriais",
+    "formato": "16:9",
+    "duracao": "",
+    "capa": "",
+    "previa": "",
+    "video": null
+  }
+]
