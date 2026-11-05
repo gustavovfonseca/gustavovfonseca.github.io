@@ -8,7 +8,8 @@
     "behance": "https://www.behance.net/gallery/244854199/DIRECT-RESPONSE-VIDEOS",
     "videos": [
       { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "duracao": "2:26" }
-    ]
+    ],
+    "publicado": "2026-02-26"
   },
   {
     "titulo": "TikTok Shop",
@@ -26,7 +27,8 @@
       { "tipo": "behance", "id": "Tiip2a5pZhE", "formato": "9:16", "duracao": "2:10" },
       { "tipo": "behance", "id": "CQNNP7CTSp4", "formato": "9:16", "duracao": "1:40" },
       { "tipo": "behance", "id": "Vn2YipNd2Tp", "formato": "9:16", "duracao": "1:42" }
-    ]
+    ],
+    "publicado": "2025-10-21"
   },
   {
     "titulo": "Criativos e Reels",
@@ -43,7 +45,8 @@
       { "tipo": "behance", "id": "-WomML9BkjD", "formato": "9:16", "duracao": "0:40" },
       { "tipo": "behance", "id": "6FSx2SJUjGS", "formato": "9:16", "duracao": "0:36" },
       { "tipo": "behance", "id": "-Gw9KGdjnJk", "formato": "9:16", "duracao": "0:46" }
-    ]
+    ],
+    "publicado": "2025-08-12"
   },
   {
     "titulo": "Motion",
@@ -57,7 +60,8 @@
       { "tipo": "behance", "id": "WJC4XYMIawR", "formato": "1:1", "duracao": "0:09" },
       { "tipo": "behance", "id": "JxLwvbrtFNH", "formato": "1:1", "duracao": "0:07" },
       { "tipo": "behance", "id": "9aozLmhdv6I", "formato": "1:1", "duracao": "0:11" }
-    ]
+    ],
+    "publicado": "2025-03-21"
   },
   {
     "titulo": "TikToks",
@@ -70,7 +74,8 @@
       { "tipo": "behance", "id": "QmRtebjVQyL", "formato": "9:16", "duracao": "0:15" },
       { "tipo": "behance", "id": "3XT_Pq49sxo", "formato": "9:16", "duracao": "0:15" },
       { "tipo": "behance", "id": "PtahcwXTcMP", "formato": "9:16", "duracao": "1:14" }
-    ]
+    ],
+    "publicado": "2025-03-21"
   },
   {
     "titulo": "Podcasts",
@@ -85,7 +90,8 @@
       { "tipo": "youtube", "id": "4yq8dOPmMTY", "formato": "16:9" },
       { "tipo": "youtube", "id": "R41mWKNYysg", "formato": "16:9" },
       { "tipo": "youtube", "id": "8VCTQduMiAg", "formato": "16:9" }
-    ]
+    ],
+    "publicado": "2025-03-11"
   },
   {
     "titulo": "Tutoriais",
@@ -97,7 +103,8 @@
     "videos": [
       { "tipo": "youtube", "id": "L0ZFk-qsgwU", "formato": "16:9" },
       { "tipo": "behance", "id": "KadmISx9JCn", "formato": "16:9", "duracao": "5:00" }
-    ]
+    ],
+    "publicado": "2025-03-11"
   },
   {
     "titulo": "Diversos",
@@ -109,6 +116,7 @@
     "videos": [
       { "tipo": "youtube", "id": "WWHly4vW-ZA", "formato": "16:9" },
       { "tipo": "behance", "id": "BdVMZo4Kujc", "formato": "16:9", "duracao": "2:51" }
-    ]
+    ],
+    "publicado": "2025-03-21"
   }
 ]
