@@ -105,8 +105,9 @@ o GitHub Pages limita o site a 1 GB e o tráfego a ~100 GB/mês.
 
 ## Em destaque
 
-A seção "Em destaque" mostra sempre o **primeiro vídeo do primeiro projeto** de
-`data/projetos.json` — ou seja, do primeiro projeto do perfil no Behance. Para trocar o destaque,
+A seção "Em destaque" mostra sempre o **primeiro projeto** de
+`data/projetos.json` (o primeiro do perfil no Behance) e abre o projeto inteiro no player, começando
+pelo primeiro vídeo. Para trocar o destaque,
 mude a ordem no Behance (ou dos vídeos dentro do projeto).
 
 Os pontos ao lado do vídeo vêm do campo opcional `destaques` do projeto:

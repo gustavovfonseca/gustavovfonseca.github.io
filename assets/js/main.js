@@ -314,21 +314,26 @@
   }
 
   /* ---------- Em destaque: primeiro vídeo do primeiro projeto da lista ---------- */
-  var destaqueVideo = null;
+  var destaqueProjeto = null;
   var destaqueBtn = document.getElementById('destaque-btn');
   destaqueBtn.addEventListener('click', function () {
-    if (destaqueVideo) abrir([destaqueVideo], destaqueVideo.titulo, destaqueBtn);
+    if (!destaqueProjeto) return;
+    var vids = destaqueProjeto.videos.map(function (v) { return Object.assign({ titulo: destaqueProjeto.titulo }, v); });
+    abrir(vids, destaqueProjeto.titulo, destaqueBtn); // abre o projeto todo, começando pelo 1º vídeo
   });
 
   function aplicarDestaque() {
     var p = projetos.filter(function (x) { return x.videos && x.videos.length; })[0];
     if (!p) return;
+    destaqueProjeto = p;
     var v = p.videos[0];
-    destaqueVideo = Object.assign({ titulo: p.titulo }, v);
+    var qtd = p.videos.length;
 
     document.getElementById('destaque-eyebrow').textContent = 'EM DESTAQUE · ' + p.titulo.toUpperCase();
-    document.getElementById('destaque-meta').textContent = [v.formato, v.duracao].filter(Boolean).join(' · ');
-    destaqueBtn.setAttribute('aria-label', 'Assistir ' + p.titulo);
+    document.getElementById('destaque-meta').textContent = qtd > 1
+      ? [qtd + ' vídeos', formatos(p)].join(' · ')
+      : [v.formato, v.duracao].filter(Boolean).join(' · ');
+    destaqueBtn.setAttribute('aria-label', 'Assistir ' + p.titulo + (qtd > 1 ? ' (' + qtd + ' vídeos)' : ''));
 
     var capa = document.getElementById('destaque-capa');
     if (p.capa) {
