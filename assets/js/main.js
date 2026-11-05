@@ -36,13 +36,34 @@
   var player = document.getElementById('player');
   var caixa = document.getElementById('player-box');
   var fechar = document.getElementById('player-fechar');
+  var titulo = document.getElementById('player-titulo');
+  var navEl = document.getElementById('player-nav');
   var origem = null;
+  var lista = [];
+  var atual = 0;
 
-  function montarVideo(video, vertical) {
-    caixa.className = 'player__box ' + (vertical ? 'player__box--v' : 'player__box--h');
+  function ehVertical(formato) {
+    return formato === '9:16' || formato === '4:5';
+  }
+
+  function classeFormato(formato) {
+    if (formato === '1:1') return 'player__box--q';
+    return ehVertical(formato) ? 'player__box--v' : 'player__box--h';
+  }
+
+  function urlDoVideo(v) {
+    var id = encodeURIComponent(v.id);
+    if (v.tipo === 'youtube') return 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1&modestbranding=1';
+    if (v.tipo === 'vimeo') return 'https://player.vimeo.com/video/' + id + '?autoplay=1&title=0&byline=0&portrait=0';
+    if (v.tipo === 'behance') return 'https://www-ccv.adobe.io/v1/player/ccv/' + id + '/embed?api_key=behance1&bgcolor=%23000000';
+    return '';
+  }
+
+  function montarVideo(v) {
+    caixa.className = 'player__box ' + classeFormato(v && v.formato);
     caixa.textContent = '';
 
-    if (!video || (!video.id && !video.arquivo)) {
+    if (!v || (!v.id && !v.arquivo)) {
       var vazio = document.createElement('p');
       vazio.className = 'player__empty';
       vazio.textContent = 'Este vídeo ainda não foi adicionado.';
@@ -50,36 +71,78 @@
       return;
     }
 
-    if (video.tipo === 'arquivo') {
-      var v = document.createElement('video');
-      v.src = video.arquivo;
-      v.controls = true;
-      v.autoplay = true;
-      v.playsInline = true;
-      caixa.appendChild(v);
+    if (v.tipo === 'arquivo') {
+      var el = document.createElement('video');
+      el.src = v.arquivo;
+      el.controls = true;
+      el.autoplay = true;
+      el.playsInline = true;
+      caixa.appendChild(el);
       return;
     }
 
-    var src = '';
-    var id = encodeURIComponent(video.id);
-    if (video.tipo === 'youtube') {
-      src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1&modestbranding=1';
-    } else if (video.tipo === 'vimeo') {
-      src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&title=0&byline=0&portrait=0';
-    }
     var frame = document.createElement('iframe');
-    frame.src = src;
-    frame.title = video.titulo || 'Vídeo';
+    frame.src = urlDoVideo(v);
+    frame.title = v.titulo || 'Vídeo';
     frame.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
     frame.allowFullscreen = true;
     caixa.appendChild(frame);
   }
 
-  function abrir(video, vertical, botao) {
+  function mostrar(i) {
+    atual = (i + lista.length) % lista.length;
+    montarVideo(lista[atual]);
+    Array.prototype.forEach.call(navEl.querySelectorAll('.player__dot'), function (d, n) {
+      d.setAttribute('aria-current', n === atual ? 'true' : 'false');
+    });
+    var contador = navEl.querySelector('.player__count');
+    if (contador) contador.textContent = (atual + 1) + ' / ' + lista.length;
+  }
+
+  function montarNavegacao() {
+    navEl.textContent = '';
+    navEl.hidden = lista.length < 2;
+    if (lista.length < 2) return;
+
+    var ant = botaoSeta('Vídeo anterior', 'M15 6l-6 6 6 6', function () { mostrar(atual - 1); });
+    var prox = botaoSeta('Próximo vídeo', 'M9 6l6 6-6 6', function () { mostrar(atual + 1); });
+    var pontos = document.createElement('div');
+    pontos.className = 'player__dots';
+    lista.forEach(function (v, n) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'player__dot';
+      d.setAttribute('aria-label', 'Vídeo ' + (n + 1) + (v.duracao ? ' (' + v.duracao + ')' : ''));
+      d.addEventListener('click', function () { mostrar(n); });
+      pontos.appendChild(d);
+    });
+    var contador = document.createElement('span');
+    contador.className = 'player__count mono';
+
+    navEl.appendChild(ant);
+    navEl.appendChild(pontos);
+    navEl.appendChild(contador);
+    navEl.appendChild(prox);
+  }
+
+  function botaoSeta(rotulo, caminho, acao) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'player__arrow';
+    b.setAttribute('aria-label', rotulo);
+    b.innerHTML = '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + caminho + '"/></svg>';
+    b.addEventListener('click', acao);
+    return b;
+  }
+
+  function abrir(videos, nome, botao) {
     origem = botao || null;
-    montarVideo(video, vertical);
+    lista = (videos && videos.length) ? videos : [null];
+    titulo.textContent = nome || '';
+    montarNavegacao();
     if (typeof player.showModal === 'function') player.showModal();
     else player.setAttribute('open', '');
+    mostrar(0);
     fechar.focus();
   }
 
@@ -93,10 +156,11 @@
   player.addEventListener('click', function (e) {
     if (e.target === player) player.close(); // clique fora do vídeo
   });
-
-  function ehVertical(formato) {
-    return !formato || formato === '9:16' || formato === '4:5' || formato === '1:1';
-  }
+  player.addEventListener('keydown', function (e) {
+    if (lista.length < 2) return;
+    if (e.key === 'ArrowRight') { mostrar(atual + 1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { mostrar(atual - 1); e.preventDefault(); }
+  });
 
   /* ---------- Configurações gerais (data/site.json) ---------- */
   function aplicarConfig() {
@@ -104,14 +168,14 @@
     if (config.reel && (config.reel.id || config.reel.arquivo)) {
       reelBtn.hidden = false;
       reelBtn.addEventListener('click', function () {
-        abrir(config.reel, ehVertical(config.reel.formato || '16:9'), reelBtn);
+        abrir([config.reel], 'Reel', reelBtn);
       });
     }
 
     var destaqueBtn = document.querySelector('[data-video="destaque"]');
     destaqueBtn.addEventListener('click', function () {
       var d = config.destaque || null;
-      abrir(d, ehVertical(d && d.formato), destaqueBtn);
+      abrir(d ? [d] : null, d && d.titulo, destaqueBtn);
     });
 
     var zap = document.getElementById('whatsapp');
@@ -128,15 +192,21 @@
   var projetos = [];
   var categoriaAtual = 'Todos';
 
+  function formatos(p) {
+    var f = [];
+    (p.videos || []).forEach(function (v) { if (v.formato && f.indexOf(v.formato) === -1) f.push(v.formato); });
+    return f.join(' · ');
+  }
+
   function criarCard(p) {
     var item = document.createElement('article');
     item.className = 'work';
 
+    var qtd = (p.videos || []).length;
     var tile = document.createElement('button');
     tile.type = 'button';
-    // Todas as capas ficam verticais na grade; o formato real vale no player.
     tile.className = 'work__tile';
-    tile.setAttribute('aria-label', 'Assistir ' + p.titulo);
+    tile.setAttribute('aria-label', 'Assistir ' + p.titulo + (qtd > 1 ? ' (' + qtd + ' vídeos)' : ''));
 
     if (p.capa) {
       var img = document.createElement('img');
@@ -144,23 +214,24 @@
       img.src = p.capa;
       img.alt = '';
       img.loading = 'lazy';
+      img.decoding = 'async';
+      img.referrerPolicy = 'no-referrer';
+      img.onerror = function () { img.remove(); }; // sem capa, fica o fundo violeta
       tile.appendChild(img);
     }
-    if (p.previa && !calmo) {
-      var prev = document.createElement('video');
-      prev.className = 'work__media';
-      prev.dataset.src = p.previa;
-      prev.muted = true;
-      prev.loop = true;
-      prev.playsInline = true;
-      prev.setAttribute('aria-hidden', 'true');
-      tile.appendChild(prev);
-      observarPrevia(prev);
-    }
 
+    var topo = document.createElement('span');
+    topo.className = 'work__top';
     var cat = document.createElement('span');
     cat.className = 'work__cat';
     cat.textContent = p.categoria.toUpperCase();
+    topo.appendChild(cat);
+    if (qtd > 1) {
+      var n = document.createElement('span');
+      n.className = 'work__count';
+      n.textContent = qtd + ' vídeos';
+      topo.appendChild(n);
+    }
 
     var play = document.createElement('span');
     play.className = 'play';
@@ -169,39 +240,38 @@
 
     var fmt = document.createElement('span');
     fmt.className = 'work__fmt';
-    fmt.textContent = [p.formato, p.duracao].filter(Boolean).join(' · ');
+    fmt.textContent = formatos(p);
 
-    tile.appendChild(cat);
+    tile.appendChild(topo);
     tile.appendChild(play);
     tile.appendChild(fmt);
     tile.addEventListener('click', function () {
-      var video = p.video ? Object.assign({ titulo: p.titulo }, p.video) : null;
-      abrir(video, ehVertical(p.formato), tile);
+      var vids = (p.videos || []).map(function (v) { return Object.assign({ titulo: p.titulo }, v); });
+      abrir(vids, p.titulo, tile);
     });
 
-    var titulo = document.createElement('h3');
-    titulo.className = 'work__title';
-    titulo.textContent = p.titulo;
+    var corpo = document.createElement('div');
+    corpo.className = 'work__body';
+    var h = document.createElement('h3');
+    h.className = 'work__title';
+    h.textContent = p.titulo;
+    corpo.appendChild(h);
+    if (p.descricao) {
+      var d = document.createElement('p');
+      d.className = 'work__desc';
+      d.textContent = p.descricao;
+      corpo.appendChild(d);
+    }
+    if (p.ferramentas && p.ferramentas.length) {
+      var t = document.createElement('p');
+      t.className = 'work__tools mono';
+      t.textContent = p.ferramentas.join(' · ');
+      corpo.appendChild(t);
+    }
 
     item.appendChild(tile);
-    item.appendChild(titulo);
+    item.appendChild(corpo);
     return item;
-  }
-
-  var observador = 'IntersectionObserver' in window ? new IntersectionObserver(function (entradas) {
-    entradas.forEach(function (e) {
-      var v = e.target;
-      if (e.isIntersecting) {
-        if (!v.src) v.src = v.dataset.src;
-        var t = v.play(); if (t && t.catch) t.catch(function () {});
-      } else {
-        v.pause();
-      }
-    });
-  }, { rootMargin: '200px' }) : null;
-
-  function observarPrevia(v) {
-    if (observador) observador.observe(v);
   }
 
   function renderizarGrade() {
@@ -215,6 +285,7 @@
     var cats = ['Todos'];
     projetos.forEach(function (p) { if (cats.indexOf(p.categoria) === -1) cats.push(p.categoria); });
     filtrosEl.textContent = '';
+    filtrosEl.hidden = cats.length < 3;
     cats.forEach(function (c) {
       var b = document.createElement('button');
       b.type = 'button';
@@ -245,8 +316,11 @@
     .then(aplicarConfig);
 
   carregar('data/projetos.json')
-    .then(function (lista) {
-      projetos = (lista || []).filter(function (p) { return p && p.titulo && p.categoria && !p.oculto; });
+    .then(function (itens) {
+      projetos = (itens || []).filter(function (p) { return p && p.titulo && p.categoria && !p.oculto; });
+      var total = projetos.reduce(function (s, p) { return s + (p.videos || []).length; }, 0);
+      var totalEl = document.getElementById('total-videos');
+      if (totalEl && total) totalEl.textContent = total;
       renderizarFiltros();
       renderizarGrade();
     })

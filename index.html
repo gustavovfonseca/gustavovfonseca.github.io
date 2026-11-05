@@ -80,42 +80,33 @@
     <section class="section section--graphite">
       <div class="wrap split">
         <div class="stack split__main">
-          <p class="eyebrow">ANÚNCIO EM DESTAQUE</p>
-          <h2 class="title">Retenção nos primeiros 3 segundos. Conversão até o último.</h2>
+          <p class="eyebrow">EM DESTAQUE · VSL · SAÚDE E BEM-ESTAR</p>
+          <h2 class="title">Retenção do primeiro ao último segundo.</h2>
           <ol class="beats">
-            <li><span class="mono muted">0–3 s</span><span><b>Hook</b> — a primeira imagem segura o dedo</span></li>
-            <li><span class="mono muted">3–10 s</span><span><b>Problema</b> — ritmo e legenda mantêm a atenção</span></li>
-            <li><span class="mono muted">10–25 s</span><span><b>Oferta</b> — prova e benefício na tela</span></li>
-            <li><span class="mono muted">final</span><span><b>CTA</b> — uma ação clara</span></li>
+            <li><span class="mono muted">01</span><span><b>Conexão</b> — B-roll de lifestyle que aproxima o público da história</span></li>
+            <li><span class="mono muted">02</span><span><b>Autoridade</b> — cinematografia macro que dá peso científico ao produto</span></li>
+            <li><span class="mono muted">03</span><span><b>Retenção</b> — cada transição pensada para segurar a atenção</span></li>
+            <li><span class="mono muted">04</span><span><b>Ação</b> — a narrativa conduz a uma chamada clara</span></li>
           </ol>
-          <!-- PREENCHER: trocar os tempos acima pelos do anúncio real escolhido -->
         </div>
-        <div class="phone">
-          <span class="mono phone__label">ANÚNCIO EM DESTAQUE</span>
-          <button class="play play--lg" type="button" data-video="destaque" aria-label="Assistir anúncio em destaque">
-            <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#000"/></svg>
-          </button>
-          <span class="mono phone__label">9:16</span>
-        </div>
+        <button class="screen" type="button" data-video="destaque" aria-label="Assistir a VSL de saúde e bem-estar (2 minutos e 26 segundos)">
+          <img class="screen__img" src="https://mir-s3-cdn-cf.behance.net/projects/original_webp/e1bec3244854199.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+          <span class="play play--lg" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z" fill="#000"/></svg></span>
+          <span class="screen__meta mono">VSL · 16:9 · 2:26</span>
+        </button>
       </div>
     </section>
 
-    <!-- RESULTADOS — PREENCHER com números reais ou remover os cards sem dado -->
+    <!-- EM NÚMEROS — quando houver métricas de resultado (ROAS, retenção), trocar ou somar aqui -->
     <section class="section section--black section--tight">
       <div class="wrap stack">
-        <p class="eyebrow">RESULTADOS</p>
+        <p class="eyebrow">EM NÚMEROS</p>
         <div class="grid grid--3">
-          <div class="card card--metric"><span class="metric">[__]x</span><span class="muted">ROAS médio dos criativos</span></div>
-          <div class="card card--metric"><span class="metric">[__]%</span><span class="muted">retenção nos 3 primeiros segundos</span></div>
           <div class="card card--metric"><span class="metric">5+</span><span class="muted">anos editando vídeo</span></div>
+          <div class="card card--metric"><span class="metric" id="total-videos">32</span><span class="muted">vídeos no portfólio</span></div>
+          <div class="card card--metric"><span class="metric">3</span><span class="muted">formatos: vertical 9:16, quadrado 1:1 e horizontal 16:9</span></div>
         </div>
-        <div class="clients">
-          <span>Já editei para:</span>
-          <span class="clients__slot">[LOGO CLIENTE]</span>
-          <span class="clients__slot">[LOGO CLIENTE]</span>
-          <span class="clients__slot">[LOGO CLIENTE]</span>
-          <span class="clients__slot">[LOGO CLIENTE]</span>
-        </div>
+        <!-- Logos de clientes: adicionar aqui quando houver autorização para citar -->
       </div>
     </section>
 
@@ -124,7 +115,7 @@
       <div class="wrap stack">
         <div class="section-head">
           <h2 class="title">Trabalhos</h2>
-          <span class="muted">Toque em um vídeo para assistir completo</span>
+          <span class="muted">Toque em um projeto para assistir aos vídeos</span>
         </div>
         <div class="filters" id="filtros" role="group" aria-label="Filtrar trabalhos por categoria"></div>
         <div class="works" id="grade" aria-live="polite"></div>
@@ -155,7 +146,7 @@
           <h2 class="title">Sobre</h2>
           <p class="lead lead--light">Sou o Gustavo Fonseca, editor de vídeo há mais de cinco anos e motion designer em São Paulo. Hoje meu foco é Direct Response: transformar storytelling visual em conteúdo que converte.</p>
           <ul class="tags">
-            <li>[FERRAMENTA]</li><li>[FERRAMENTA]</li><li>[FERRAMENTA]</li>
+            <li>Premiere Pro</li><li>After Effects</li><li>CapCut</li>
           </ul>
         </div>
       </div>
@@ -169,6 +160,7 @@
           <a class="btn btn--dark" href="mailto:gustavov.fonseca02@gmail.com">Enviar e-mail</a>
           <a class="btn btn--outline" id="whatsapp" href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
           <a class="btn btn--outline" href="https://instagram.com/gustavofons_" target="_blank" rel="noopener">Instagram @gustavofons_</a>
+          <a class="btn btn--outline" href="https://www.behance.net/gustavofonseca37" target="_blank" rel="noopener">Behance</a>
         </div>
       </div>
     </section>
@@ -180,8 +172,12 @@
   </footer>
 
   <!-- Player em janela (abre os vídeos completos) -->
-  <dialog class="player" id="player" aria-label="Vídeo">
-    <div class="player__box" id="player-box"></div>
+  <dialog class="player" id="player" aria-labelledby="player-titulo">
+    <div class="player__inner">
+      <p class="player__title" id="player-titulo">Vídeo</p>
+      <div class="player__box" id="player-box"></div>
+      <div class="player__nav" id="player-nav" hidden></div>
+    </div>
     <button class="player__close" type="button" id="player-fechar" aria-label="Fechar vídeo">
       <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>

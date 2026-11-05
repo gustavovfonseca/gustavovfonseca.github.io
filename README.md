@@ -34,30 +34,36 @@ configure no registro do domínio os apontamentos indicados pelo GitHub.
 
 ## Como adicionar ou trocar um trabalho
 
-Edite `data/projetos.json`. Cada trabalho é um bloco assim:
+Edite `data/projetos.json`. Cada **projeto** vira um card na grade e pode ter vários vídeos;
+o player passa de um vídeo para o outro com as setas.
 
 ```json
 {
-  "titulo": "VSL — Produto X",
+  "titulo": "TikTok Shop",
   "categoria": "Direct Response",
-  "formato": "9:16",
-  "duracao": "0:45",
-  "capa": "assets/img/trabalhos/produto-x.jpg",
-  "previa": "assets/video/previas/produto-x.mp4",
-  "video": { "tipo": "youtube", "id": "dQw4w9WgXcQ" }
+  "descricao": "Vídeos verticais de venda de produto.",
+  "ferramentas": ["CapCut", "Premiere Pro"],
+  "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/....jpg",
+  "behance": "https://www.behance.net/gallery/...",
+  "videos": [
+    { "tipo": "behance", "id": "Fsmhp3IKNkj", "formato": "9:16", "duracao": "0:37" },
+    { "tipo": "youtube", "id": "c9Ae6OQfRYM", "formato": "16:9" }
+  ]
 }
 ```
 
-- **categoria**: os botões de filtro são criados a partir das categorias que aparecem na lista.
-- **formato**: `9:16` (vertical) ou `16:9` (horizontal). Define o tamanho do player.
-- **capa** (opcional): imagem JPG/WebP vertical, ~600×1066 px, até ~150 KB.
-- **previa** (opcional): MP4 curto (3–6 s), sem áudio, ~720 px de altura, até ~1 MB. Toca em loop na grade.
-- **video**: onde está o vídeo completo.
+- **categoria**: os botões de filtro são criados a partir das categorias da lista.
+- **capa**: imagem do card (proporção ~1380×1080). Hoje usa as capas do Behance; pode ser um
+  arquivo em `assets/img/` também.
+- **videos**: lista de vídeos do projeto, na ordem em que aparecem no player.
+  - Behance: `{ "tipo": "behance", "id": "<código>" }` — o código está no endereço do player do
+    Behance: `www-ccv.adobe.io/v1/player/ccv/<código>/embed`.
   - YouTube: `{ "tipo": "youtube", "id": "<código depois de v= ou de shorts/>" }`
   - Vimeo: `{ "tipo": "vimeo", "id": "<número do vídeo>" }`
   - Arquivo no próprio site (só para vídeos pequenos): `{ "tipo": "arquivo", "arquivo": "assets/video/x.mp4" }`
-  - Ainda sem vídeo: `null` — o player mostra "Este vídeo ainda não foi adicionado".
-- Para esconder um trabalho sem apagar, adicione `"oculto": true`.
+  - **formato**: `9:16`, `1:1` ou `16:9` — define o tamanho do player.
+- Para esconder um projeto sem apagar, adicione `"oculto": true`.
+- O total de vídeos da seção "Em números" é contado sozinho a partir desta lista.
 
 Vídeos longos devem ficar no YouTube (pode ser "não listado") ou no Vimeo:
 o GitHub Pages limita o site a 1 GB e o tráfego a ~100 GB/mês.
@@ -69,7 +75,7 @@ Em `data/site.json`:
 ```json
 {
   "reel":     { "tipo": "youtube", "id": "XXXXXXXXXXX", "formato": "16:9" },
-  "destaque": { "tipo": "youtube", "id": "YYYYYYYYYYY", "formato": "9:16" },
+  "destaque": { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "titulo": "VSL — Saúde e bem-estar" },
   "whatsapp": "5511999999999"
 }
 ```
@@ -90,13 +96,8 @@ e abra `http://localhost:8000`.
 
 ## O que ainda falta preencher
 
-Procure por `[` no `index.html` e no `data/projetos.json`:
-
-- [ ] Vídeos reais dos trabalhos (títulos, capas, links)
-- [ ] Link do reel e do anúncio em destaque (`data/site.json`)
-- [ ] Números de resultado (ROAS, retenção) — ou remover esses cards
-- [ ] Logos de clientes
-- [ ] Foto do Gustavo (`assets/img/gustavo.jpg`) e ferramentas
-- [ ] Número de WhatsApp
-- [ ] Tempos do anúncio em destaque (seção "Anúncio em destaque")
+- [ ] Link do reel (`data/site.json`) — sem ele o botão "Ver reel" fica escondido
+- [ ] Número de WhatsApp (`data/site.json`)
+- [ ] Foto do Gustavo: salvar como `assets/img/gustavo.jpg` e trocar o bloco `[FOTO DO GUSTAVO]` no `index.html`
+- [ ] Métricas de resultado (ROAS, retenção) e logos de clientes, se puderem ser divulgados
 - [ ] Vinheta final sem a marca d'água "Veo" e com "captured" escrito certo

@@ -1,74 +1,114 @@
 [
   {
-    "titulo": "VSL — [nome do produto]",
+    "titulo": "VSL — Saúde e bem-estar",
     "categoria": "Direct Response",
-    "formato": "9:16",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
+    "descricao": "VSL de resposta direta com edição cinematográfica: B-roll de lifestyle e macro para construir autoridade e conexão, com cada transição pensada para manter a retenção até o CTA.",
+    "ferramentas": ["After Effects"],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/e1bec3244854199.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/244854199/DIRECT-RESPONSE-VIDEOS",
+    "videos": [
+      { "tipo": "behance", "id": "7HvcyAmRMQW", "formato": "16:9", "duracao": "2:26" }
+    ]
   },
   {
-    "titulo": "Anúncio de oferta — [cliente]",
+    "titulo": "TikTok Shop",
     "categoria": "Direct Response",
-    "formato": "9:16",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
+    "descricao": "Vídeos verticais de venda de produto, no formato e no ritmo que o TikTok Shop favorece.",
+    "ferramentas": ["CapCut", "Premiere Pro", "After Effects"],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/4bcf88236984135.Y3JvcCwxMTM0LDg4NiwzOTIsOTU.jpg",
+    "behance": "https://www.behance.net/gallery/236984135/TIKTOK-SHOP",
+    "videos": [
+      { "tipo": "behance", "id": "Fsmhp3IKNkj", "formato": "9:16", "duracao": "0:37" },
+      { "tipo": "behance", "id": "PSaEH2qQ9s9", "formato": "9:16", "duracao": "2:04" },
+      { "tipo": "behance", "id": "-_sYL2L3Lso", "formato": "9:16", "duracao": "1:57" },
+      { "tipo": "behance", "id": "6Nf9sx3C2zQ", "formato": "9:16", "duracao": "2:09" },
+      { "tipo": "behance", "id": "BSKycizBwmD", "formato": "9:16", "duracao": "2:02" },
+      { "tipo": "behance", "id": "Tiip2a5pZhE", "formato": "9:16", "duracao": "2:10" },
+      { "tipo": "behance", "id": "CQNNP7CTSp4", "formato": "9:16", "duracao": "1:40" },
+      { "tipo": "behance", "id": "Vn2YipNd2Tp", "formato": "9:16", "duracao": "1:42" }
+    ]
   },
   {
-    "titulo": "Vídeo de produto — [marca]",
-    "categoria": "TikTok Shop",
-    "formato": "9:16",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
+    "titulo": "Criativos e Reels",
+    "categoria": "Direct Response",
+    "descricao": "Criativos verticais para anúncios e Reels, com foco em gancho e ritmo para o feed.",
+    "ferramentas": [],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/ad4131232391725.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/232391725/CRIATIVOSREELS",
+    "videos": [
+      { "tipo": "behance", "id": "VNd_Vfp7wDz", "formato": "9:16", "duracao": "1:08" },
+      { "tipo": "behance", "id": "Sjab3wVvA7A", "formato": "9:16", "duracao": "0:46" },
+      { "tipo": "behance", "id": "Nhh9ZXt3Mwy", "formato": "9:16", "duracao": "1:27" },
+      { "tipo": "behance", "id": "ArqSCJYnZ6F", "formato": "9:16", "duracao": "0:38" },
+      { "tipo": "behance", "id": "-WomML9BkjD", "formato": "9:16", "duracao": "0:40" },
+      { "tipo": "behance", "id": "6FSx2SJUjGS", "formato": "9:16", "duracao": "0:36" },
+      { "tipo": "behance", "id": "-Gw9KGdjnJk", "formato": "9:16", "duracao": "0:46" }
+    ]
   },
   {
-    "titulo": "Criativo para Reels — [marca]",
-    "categoria": "Criativos",
-    "formato": "9:16",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
-  },
-  {
-    "titulo": "Teste de ganchos — [marca]",
-    "categoria": "Criativos",
-    "formato": "9:16",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
-  },
-  {
-    "titulo": "Vinheta animada — [cliente]",
+    "titulo": "Motion",
     "categoria": "Motion",
-    "formato": "16:9",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
+    "descricao": "Peças curtas de motion graphics em formato quadrado para redes sociais.",
+    "ferramentas": [],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/8df806221991949.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/221991949/MOTION",
+    "videos": [
+      { "tipo": "behance", "id": "QR_46JPQ3pz", "formato": "1:1", "duracao": "0:10" },
+      { "tipo": "behance", "id": "WJC4XYMIawR", "formato": "1:1", "duracao": "0:09" },
+      { "tipo": "behance", "id": "JxLwvbrtFNH", "formato": "1:1", "duracao": "0:07" },
+      { "tipo": "behance", "id": "9aozLmhdv6I", "formato": "1:1", "duracao": "0:11" }
+    ]
   },
   {
-    "titulo": "Corte de podcast — [programa]",
-    "categoria": "Podcasts",
-    "formato": "9:16",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
+    "titulo": "TikToks",
+    "categoria": "Conteúdo",
+    "descricao": "Conteúdo vertical orgânico para TikTok.",
+    "ferramentas": [],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/96f22f221987633.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/221987633/TIKTOKS",
+    "videos": [
+      { "tipo": "behance", "id": "QmRtebjVQyL", "formato": "9:16", "duracao": "0:15" },
+      { "tipo": "behance", "id": "3XT_Pq49sxo", "formato": "9:16", "duracao": "0:15" },
+      { "tipo": "behance", "id": "PtahcwXTcMP", "formato": "9:16", "duracao": "1:14" }
+    ]
   },
   {
-    "titulo": "Tutorial — [tema]",
-    "categoria": "Tutoriais",
-    "formato": "16:9",
-    "duracao": "",
-    "capa": "",
-    "previa": "",
-    "video": null
+    "titulo": "Podcasts",
+    "categoria": "Conteúdo",
+    "descricao": "Edição e cortes de podcast publicados no YouTube.",
+    "ferramentas": ["Premiere Pro", "After Effects"],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/aa0085221209283.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/221209283/PODCASTS",
+    "videos": [
+      { "tipo": "youtube", "id": "c9Ae6OQfRYM", "formato": "16:9" },
+      { "tipo": "youtube", "id": "obOAPzbCWRE", "formato": "16:9" },
+      { "tipo": "youtube", "id": "4yq8dOPmMTY", "formato": "16:9" },
+      { "tipo": "youtube", "id": "R41mWKNYysg", "formato": "16:9" },
+      { "tipo": "youtube", "id": "8VCTQduMiAg", "formato": "16:9" }
+    ]
+  },
+  {
+    "titulo": "Tutoriais",
+    "categoria": "Conteúdo",
+    "descricao": "Vídeos educativos sobre desenvolvimento e investimento.",
+    "ferramentas": [],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/5c8d85221209753.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/221209753/TUTORIAIS",
+    "videos": [
+      { "tipo": "youtube", "id": "L0ZFk-qsgwU", "formato": "16:9" },
+      { "tipo": "behance", "id": "KadmISx9JCn", "formato": "16:9", "duracao": "5:00" }
+    ]
+  },
+  {
+    "titulo": "Diversos",
+    "categoria": "Conteúdo",
+    "descricao": "Outros trabalhos de edição para YouTube.",
+    "ferramentas": [],
+    "capa": "https://mir-s3-cdn-cf.behance.net/projects/original_webp/f0d8b6221998349.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg",
+    "behance": "https://www.behance.net/gallery/221998349/DIVERSOS",
+    "videos": [
+      { "tipo": "youtube", "id": "WWHly4vW-ZA", "formato": "16:9" },
+      { "tipo": "behance", "id": "BdVMZo4Kujc", "formato": "16:9", "duracao": "2:51" }
+    ]
   }
 ]
