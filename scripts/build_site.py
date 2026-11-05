@@ -85,6 +85,14 @@ def duracao_iso(texto):
     return "PT" + (f"{h}H" if h else "") + (f"{mi}M" if mi else "") + f"{s}S"
 
 
+def data_hora_iso(data):
+    """'2026-02-26' -> '2026-02-26T12:00:00-03:00'. O Google pede data com hora e fuso nos vídeos;
+    os projetos guardam só o dia, então usa meio-dia no horário de Brasília."""
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", data or ""):
+        return f"{data}T12:00:00-03:00"
+    return data
+
+
 def formatos(p):
     vistos = []
     for v in p.get("videos", []):
@@ -271,7 +279,7 @@ def json_ld(site, projetos, ferramentas):
         if p.get("behance"):
             trabalho["url"] = p["behance"]
         if p.get("publicado"):
-            trabalho["datePublished"] = p["publicado"]
+            trabalho["datePublished"] = data_hora_iso(p["publicado"])
         videos = []
         for k, v in enumerate(p.get("videos", []), 1):
             if not (p.get("capa") and p.get("publicado")):
@@ -281,7 +289,7 @@ def json_ld(site, projetos, ferramentas):
                 "name": p["titulo"] if len(p["videos"]) == 1 else f"{p['titulo']} — vídeo {k}",
                 "description": p.get("descricao") or p["titulo"],
                 "thumbnailUrl": capa_behance(p["capa"])[0],
-                "uploadDate": p["publicado"],
+                "uploadDate": data_hora_iso(p["publicado"]),
                 "embedUrl": url_embed(v),
             }
             if duracao_iso(v.get("duracao")):
