@@ -11,6 +11,8 @@ e data de cada projeto; ele NÃO traz os vídeos. Por isso:
   são mantidos.
 - Projeto apagado no Behance -> sai do site (só quando é certo que ele deveria
   aparecer no feed; veja `remover_ausentes`).
+- Ordem dos projetos -> igual à do perfil no Behance (o feed vem nessa ordem).
+- Se nada mudou, o arquivo não é regravado.
 
 Uso:
     python3 scripts/sync_behance.py               # baixa o feed e atualiza
@@ -166,10 +168,23 @@ def sincronizar(projetos, itens, remover_ausentes=True):
         resultado.append(atualizado)
 
     novos = [novo_projeto(i) for i in itens if i["id"] not in vistos]
-    novos.sort(key=lambda p: p["publicado"], reverse=True)
     for n in novos:
         log.append(f"+ novo: {n['titulo']} ({n['categoria']}) — adicione os vídeos em data/projetos.json")
-    return novos + resultado, log
+
+    # Mesma ordem do perfil no Behance (o feed vem na ordem do perfil). Projetos que não
+    # estão no feed (manuais ou antigos demais para o feed) vão para o fim, na ordem atual.
+    posicao = {item["id"]: n for n, item in enumerate(itens)}
+    todos = novos + resultado
+    ordenado = sorted(
+        enumerate(todos),
+        key=lambda par: (posicao.get(id_do_link(par[1].get("behance", "")), len(itens)), par[0]),
+    )
+    ordenado = [p for _, p in ordenado]
+    antes = [p.get("titulo") for p in resultado]
+    depois = [p.get("titulo") for p in ordenado if p in resultado]
+    if antes != depois:
+        log.append("~ ordem atualizada para seguir o perfil do Behance: " + ", ".join(p.get("titulo") for p in ordenado))
+    return ordenado, log
 
 
 def para_json(projetos):
@@ -205,14 +220,20 @@ def main():
     if not itens:
         sys.exit("O feed veio sem projetos; nada foi alterado.")
 
-    atual = json.loads(PROJETOS.read_text(encoding="utf-8"))
+    texto_atual = PROJETOS.read_text(encoding="utf-8")
+    atual = json.loads(texto_atual)
     novo, log = sincronizar(atual, itens)
+    texto_novo = para_json(novo)
     print(f"Feed: {len(itens)} projetos. Site: {len(atual)} -> {len(novo)} projetos.")
-    print("\n".join(log) if log else "Nada mudou.")
 
-    if not log or args.dry_run:
+    # Só grava se o arquivo realmente mudar; assim o workflow não commita nem publica à toa.
+    if texto_novo == texto_atual:
+        print("Nada mudou.")
         return
-    PROJETOS.write_text(para_json(novo), encoding="utf-8")
+    print("\n".join(log) if log else "Só ajuste de formatação.")
+    if args.dry_run:
+        return
+    PROJETOS.write_text(texto_novo, encoding="utf-8")
     print(f"Gravado {PROJETOS.relative_to(RAIZ)}")
 
 
